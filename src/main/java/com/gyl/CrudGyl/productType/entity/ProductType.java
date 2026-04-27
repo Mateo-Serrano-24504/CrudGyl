@@ -1,5 +1,6 @@
-package com.gyl.CrudGyl.product.entity;
+package com.gyl.CrudGyl.productType.entity;
 
+import com.gyl.CrudGyl.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
