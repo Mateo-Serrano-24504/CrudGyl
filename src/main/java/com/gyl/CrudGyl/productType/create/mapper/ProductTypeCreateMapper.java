@@ -7,10 +7,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ProductTypeCreateMapper {
-    ProductType fromDto(ProductTypeCreateDto dto) {
+    public ProductType fromDto(ProductTypeCreateDto dto) {
         return new ProductType(dto.name(), dto.description());
     }
-    ProductTypeCreateResponseDto toDto(ProductType productType) {
+    public ProductTypeCreateResponseDto toDto(ProductType productType) {
         return new ProductTypeCreateResponseDto(
                 productType.getId(), productType.getName(), productType.getDescription()
         );
