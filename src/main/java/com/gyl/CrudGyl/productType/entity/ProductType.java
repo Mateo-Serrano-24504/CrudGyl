@@ -25,4 +25,9 @@ public class ProductType {
 
     @OneToMany(mappedBy = "productType")
     private List<Product> products = new ArrayList<>();
+
+    public ProductType(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }
