@@ -5,7 +5,9 @@ import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateResponseDto;
 import com.gyl.CrudGyl.productType.create.mapper.ProductTypeCreateMapper;
 import com.gyl.CrudGyl.productType.create.repository.ProductTypeCreateRepository;
 import com.gyl.CrudGyl.productType.create.service.ProductTypeCreateService;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProductTypeCreateServiceImpl implements ProductTypeCreateService {
     private final ProductTypeCreateRepository repository;
     private final ProductTypeCreateMapper mapper;
