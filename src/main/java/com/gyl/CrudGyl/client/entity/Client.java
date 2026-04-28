@@ -29,4 +29,12 @@ public class Client {
 
     @Column(name = "address")
     private String address;
+
+    public Client(String name, String surname, String mail, String phoneNumber, String address) {
+        this.name = name;
+        this.surname = surname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
 }
