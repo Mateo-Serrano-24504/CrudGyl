@@ -1,6 +1,6 @@
 package com.gyl.CrudGyl.productType.create.controller;
 
-import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateDto;
+import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateRequestDto;
 import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateResponseDto;
 import com.gyl.CrudGyl.productType.create.service.ProductTypeCreateService;
 import jakarta.validation.Valid;
@@ -19,7 +19,7 @@ public class ProductTypeCreateController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ProductTypeCreateResponseDto create(@Valid @RequestBody ProductTypeCreateDto dto) {
+    public ProductTypeCreateResponseDto create(@Valid @RequestBody ProductTypeCreateRequestDto dto) {
         return this.service.create(dto);
     }
 }

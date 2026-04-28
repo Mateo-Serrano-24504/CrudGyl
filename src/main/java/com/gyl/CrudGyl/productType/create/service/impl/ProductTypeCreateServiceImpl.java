@@ -1,6 +1,6 @@
 package com.gyl.CrudGyl.productType.create.service.impl;
 
-import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateDto;
+import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateRequestDto;
 import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateResponseDto;
 import com.gyl.CrudGyl.productType.create.mapper.ProductTypeCreateMapper;
 import com.gyl.CrudGyl.productType.create.repository.ProductTypeCreateRepository;
@@ -19,7 +19,7 @@ public class ProductTypeCreateServiceImpl implements ProductTypeCreateService {
     }
 
     @Override
-    public ProductTypeCreateResponseDto create(ProductTypeCreateDto dto) {
+    public ProductTypeCreateResponseDto create(ProductTypeCreateRequestDto dto) {
         return this.mapper.toDto(
                 this.repository
                         .save(this.mapper.fromDto(dto))
