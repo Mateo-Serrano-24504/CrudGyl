@@ -1,6 +1,5 @@
 package com.gyl.CrudGyl;
 
-import com.gyl.CrudGyl.dto.ProductoRequestDto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
