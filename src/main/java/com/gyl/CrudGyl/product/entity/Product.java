@@ -26,4 +26,10 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
+
+    public Product(String name, Double price, Long stock) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+    }
 }
