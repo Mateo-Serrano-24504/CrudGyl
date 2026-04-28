@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.sale.entity.create.dto;
+package com.gyl.CrudGyl.sale.create.dto;
 
 import jakarta.validation.constraints.Positive;
 

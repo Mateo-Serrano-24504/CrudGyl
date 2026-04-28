@@ -1,10 +1,10 @@
-package com.gyl.CrudGyl.sale.entity.create.service.impl;
+package com.gyl.CrudGyl.sale.create.service.impl;
 
-import com.gyl.CrudGyl.sale.entity.create.dto.SaleCreateRequestDto;
-import com.gyl.CrudGyl.sale.entity.create.dto.SaleCreateResponseDto;
-import com.gyl.CrudGyl.sale.entity.create.mapper.SaleCreateMapper;
-import com.gyl.CrudGyl.sale.entity.create.repository.SaleCreateRepository;
-import com.gyl.CrudGyl.sale.entity.create.service.SaleCreateService;
+import com.gyl.CrudGyl.sale.create.dto.SaleCreateRequestDto;
+import com.gyl.CrudGyl.sale.create.dto.SaleCreateResponseDto;
+import com.gyl.CrudGyl.sale.create.mapper.SaleCreateMapper;
+import com.gyl.CrudGyl.sale.create.repository.SaleCreateRepository;
+import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
 import org.springframework.stereotype.Service;
 
 @Service

@@ -1,8 +1,8 @@
-package com.gyl.CrudGyl.sale.entity.create.controller;
+package com.gyl.CrudGyl.sale.create.controller;
 
-import com.gyl.CrudGyl.sale.entity.create.dto.SaleCreateRequestDto;
-import com.gyl.CrudGyl.sale.entity.create.dto.SaleCreateResponseDto;
-import com.gyl.CrudGyl.sale.entity.create.service.SaleCreateService;
+import com.gyl.CrudGyl.sale.create.dto.SaleCreateRequestDto;
+import com.gyl.CrudGyl.sale.create.dto.SaleCreateResponseDto;
+import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;

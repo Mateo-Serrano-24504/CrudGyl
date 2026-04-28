@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.sale.entity.create.repository;
+package com.gyl.CrudGyl.sale.create.repository;
 
 import com.gyl.CrudGyl.sale.entity.Sale;
 import org.springframework.data.jpa.repository.JpaRepository;

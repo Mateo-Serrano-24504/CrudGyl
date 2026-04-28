@@ -1,8 +1,8 @@
-package com.gyl.CrudGyl.sale.entity.create.mapper;
+package com.gyl.CrudGyl.sale.create.mapper;
 
+import com.gyl.CrudGyl.sale.create.dto.SaleCreateRequestDto;
+import com.gyl.CrudGyl.sale.create.dto.SaleCreateResponseDto;
 import com.gyl.CrudGyl.sale.entity.Sale;
-import com.gyl.CrudGyl.sale.entity.create.dto.SaleCreateRequestDto;
-import com.gyl.CrudGyl.sale.entity.create.dto.SaleCreateResponseDto;
 import org.springframework.stereotype.Component;
 
 import java.time.ZoneOffset;
