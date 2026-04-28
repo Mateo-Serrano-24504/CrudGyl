@@ -5,12 +5,10 @@ import com.gyl.CrudGyl.product.create.dto.ProductCreateResponseDto;
 import com.gyl.CrudGyl.product.create.service.ProductCreateService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-@RestController("/products")
+@RestController
+@RequestMapping("/products")
 public class ProductCreateController {
     private final ProductCreateService service;
     public ProductCreateController(ProductCreateService service) {
