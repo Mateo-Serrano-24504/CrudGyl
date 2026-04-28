@@ -6,5 +6,9 @@ import jakarta.validation.constraints.Positive;
 public record SaleCreateRequestDto (
         @NotNull
         @Positive
-        Double total
+        Double total,
+
+        @NotNull
+        @Positive
+        Long clientId
 ) {}

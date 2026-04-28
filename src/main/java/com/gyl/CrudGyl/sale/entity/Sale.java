@@ -1,7 +1,7 @@
 package com.gyl.CrudGyl.sale.entity;
 
+import com.gyl.CrudGyl.client.entity.Client;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,6 +25,10 @@ public class Sale {
 
     @Column(name = "total")
     Double total;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     public Sale(Double total) {
         this.total = total;

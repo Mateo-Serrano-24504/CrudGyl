@@ -1,9 +1,13 @@
 package com.gyl.CrudGyl.client.entity;
 
+import com.gyl.CrudGyl.sale.entity.Sale;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "clients")
@@ -29,6 +33,9 @@ public class Client {
 
     @Column(name = "address")
     private String address;
+
+    @OneToMany
+    private List<Sale> sales = new ArrayList<>();
 
     public Client(String name, String surname, String mail, String phoneNumber, String address) {
         this.name = name;
