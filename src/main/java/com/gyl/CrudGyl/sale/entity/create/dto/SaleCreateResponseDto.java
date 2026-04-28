@@ -4,6 +4,6 @@ import java.time.OffsetDateTime;
 
 public record SaleCreateResponseDto (
         Long id,
-        OffsetDateTime date,
+        OffsetDateTime createdAt,
         Double total
 ) {}
