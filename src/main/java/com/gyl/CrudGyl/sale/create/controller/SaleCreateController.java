@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sale")
+@RequestMapping("/sales")
 public class SaleCreateController {
     private final SaleCreateService service;
     public SaleCreateController(SaleCreateService service) {
