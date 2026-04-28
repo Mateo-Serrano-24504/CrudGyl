@@ -21,5 +21,5 @@ public class Sale {
     Instant date;
 
     @Column(name = "total")
-    Long total;
+    Double total;
 }
