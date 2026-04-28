@@ -18,5 +18,5 @@ public record ProductCreateRequestDto (
 
         @NotNull
         @PositiveOrZero
-        Long poductTypeId
+        Long productTypeId
 ) {}

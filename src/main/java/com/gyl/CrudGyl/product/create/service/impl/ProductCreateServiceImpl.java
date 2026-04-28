@@ -31,9 +31,9 @@ public class ProductCreateServiceImpl implements ProductCreateService {
 
     @Override
     public ProductCreateResponseDto create(ProductCreateRequestDto dto) {
-        Optional<ProductType> productType = this.productTypeFindRepository.findById(dto.poductTypeId());
+        Optional<ProductType> productType = this.productTypeFindRepository.findById(dto.productTypeId());
         if (productType.isEmpty()) {
-            throw new ProductTypeDoesNotExist(dto.poductTypeId());
+            throw new ProductTypeDoesNotExist(dto.productTypeId());
         }
         Product product = this.mapper.fromDto(dto);
         product.setProductType(productType.get());
