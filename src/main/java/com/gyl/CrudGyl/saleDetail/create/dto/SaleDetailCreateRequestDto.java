@@ -10,5 +10,5 @@ public record SaleDetailCreateRequestDto (
 
         @NotNull
         @Positive
-        Double unitPrice
+        Long productId
 ) {}

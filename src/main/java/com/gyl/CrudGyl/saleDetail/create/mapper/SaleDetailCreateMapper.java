@@ -9,9 +9,7 @@ import org.springframework.stereotype.Component;
 public class SaleDetailCreateMapper {
     public SaleDetail fromDto(SaleDetailCreateRequestDto dto) {
         return new SaleDetail(
-                dto.amount(),
-                dto.unitPrice(),
-                dto.unitPrice() * dto.amount()
+                dto.amount()
         );
     }
     public SaleDetailCreateResponseDto toDto(SaleDetail saleDetail) {

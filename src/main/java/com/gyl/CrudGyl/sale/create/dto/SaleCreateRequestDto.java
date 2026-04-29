@@ -14,5 +14,5 @@ public record SaleCreateRequestDto (
 
         @NotNull
         @NotEmpty
-        List<SaleDetailCreateRequestDto> requests
+        List<SaleDetailCreateRequestDto> details
 ) {}

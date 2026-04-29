@@ -14,7 +14,16 @@ public class SaleCreateExceptionHandler {
 
     @ExceptionHandler(ClientDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleProductTypeDoesNotExist(ClientDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(ClientDoesNotExist ex) {
+        String prefix = "Error during sale creation";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorFormat(prefix, List.of(ex.getMessage()))
+        );
+    }
+
+    @ExceptionHandler(ProductDoesNotExist.class)
+    @SuppressWarnings("unused")
+    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(ProductDoesNotExist ex) {
         String prefix = "Error during sale creation";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))

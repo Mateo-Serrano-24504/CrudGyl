@@ -1,10 +1,14 @@
 package com.gyl.CrudGyl.product.entity;
 
 import com.gyl.CrudGyl.productType.entity.ProductType;
+import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -28,6 +32,9 @@ public class Product {
     @ManyToOne
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
+
+    @OneToMany(mappedBy = "product")
+    private List<SaleDetail> salesDetails = new ArrayList<>();
 
     public Product(String name, Double price, Long stock) {
         this.name = name;
