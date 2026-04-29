@@ -1,12 +1,10 @@
 package com.gyl.CrudGyl.sale.entity;
 
 import com.gyl.CrudGyl.client.entity.Client;
-import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -34,8 +32,4 @@ public class Sale {
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<SaleDetail> salesDetails = new ArrayList<>();
-
-    public Sale(Double total) {
-        this.total = total;
-    }
 }

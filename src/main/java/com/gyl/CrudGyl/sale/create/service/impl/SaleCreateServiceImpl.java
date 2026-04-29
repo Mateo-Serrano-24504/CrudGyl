@@ -12,8 +12,7 @@ import com.gyl.CrudGyl.sale.create.repository.ProductFindRepository;
 import com.gyl.CrudGyl.sale.create.repository.SaleCreateRepository;
 import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
 import com.gyl.CrudGyl.sale.entity.Sale;
-import com.gyl.CrudGyl.saleDetail.create.mapper.SaleDetailCreateMapper;
-import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
+import com.gyl.CrudGyl.sale.entity.SaleDetail;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -27,19 +26,16 @@ public class SaleCreateServiceImpl implements SaleCreateService {
     private final ClientFindRepository clientFindRepository;
     private final ProductFindRepository productFindRepository;
     private final SaleCreateMapper mapper;
-    private final SaleDetailCreateMapper saleDetailCreateMapper;
     public SaleCreateServiceImpl(
             SaleCreateRepository repository,
             ClientFindRepository clientFindRepository,
             ProductFindRepository productFindRepository,
-            SaleCreateMapper mapper,
-            SaleDetailCreateMapper saleDetailCreateMapper
+            SaleCreateMapper mapper
     ) {
         this.repository = repository;
         this.clientFindRepository = clientFindRepository;
         this.productFindRepository = productFindRepository;
         this.mapper = mapper;
-        this.saleDetailCreateMapper = saleDetailCreateMapper;
     }
 
     private SaleDetail fillSaleDetail(Long amount, Long productId, Sale sale) {

@@ -1,8 +1,6 @@
-package com.gyl.CrudGyl.saleDetail.entity;
+package com.gyl.CrudGyl.sale.entity;
 
-import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.product.entity.Product;
-import com.gyl.CrudGyl.sale.entity.Sale;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -34,8 +32,4 @@ public class SaleDetail {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    public SaleDetail(Long amount) {
-        this.amount = amount;
-    }
 }

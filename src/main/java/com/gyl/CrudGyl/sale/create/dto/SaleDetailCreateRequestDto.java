@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.saleDetail.create.dto;
+package com.gyl.CrudGyl.sale.create.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
