@@ -18,9 +18,8 @@ public class HistoricClient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
+    @Column(name = "client_id")
+    private Long clientId;
 
     @Column(name = "name")
     private String name;

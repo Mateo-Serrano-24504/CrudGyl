@@ -19,9 +19,8 @@ public class HistoricProduct {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @Column(name = "product_id")
+    private Long productId;
 
     @Column(name = "name")
     private String name;
