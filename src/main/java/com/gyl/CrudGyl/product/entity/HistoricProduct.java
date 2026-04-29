@@ -2,25 +2,26 @@ package com.gyl.CrudGyl.product.entity;
 
 import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.productType.entity.ProductType;
-import com.gyl.CrudGyl.sale.entity.SaleDetail;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
-@Table(name = "products")
+@Table(name = "historic_products")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Product {
+public class HistoricProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
+
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
 
     @Column(name = "name")
     private String name;
@@ -35,21 +36,12 @@ public class Product {
     @JoinColumn(name = "product_type_id")
     private ProductType productType;
 
-    @Column(name = "valid_since")
-    private Instant validSince;
+    @Column(name = "valid_from")
+    private Instant validFrom;
+
+    @Column(name = "valid_to")
+    private Instant validTo;
 
     @Column(name = "state")
     private EntityState state;
-
-    @Column(name = "created_at")
-    private Instant createdAt;
-
-    @OneToMany(mappedBy = "product")
-    private List<SaleDetail> salesDetails = new ArrayList<>();
-
-    public Product(String name, Double price, Long stock) {
-        this.name = name;
-        this.price = price;
-        this.stock = stock;
-    }
 }
