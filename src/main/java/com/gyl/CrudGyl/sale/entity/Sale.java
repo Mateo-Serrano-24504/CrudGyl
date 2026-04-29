@@ -23,7 +23,6 @@ public class Sale {
     Long id;
 
     @Column(name = "date")
-    @CreationTimestamp
     Instant createdAt;
 
     @Column(name = "total")
@@ -33,7 +32,7 @@ public class Sale {
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @OneToMany
+    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
     private List<SaleDetail> salesDetails = new ArrayList<>();
 
     public Sale(Double total) {

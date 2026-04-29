@@ -9,19 +9,31 @@ import com.gyl.CrudGyl.sale.create.repository.ClientFindRepository;
 import com.gyl.CrudGyl.sale.create.repository.SaleCreateRepository;
 import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
 import com.gyl.CrudGyl.sale.entity.Sale;
+import com.gyl.CrudGyl.saleDetail.create.mapper.SaleDetailCreateMapper;
+import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class SaleCreateServiceImpl implements SaleCreateService {
     private final SaleCreateRepository repository;
     private final ClientFindRepository clientFindRepository;
     private final SaleCreateMapper mapper;
-    public SaleCreateServiceImpl(SaleCreateRepository repository, ClientFindRepository clientFindRepository, SaleCreateMapper mapper) {
+    private final SaleDetailCreateMapper saleDetailCreateMapper;
+    public SaleCreateServiceImpl(
+            SaleCreateRepository repository,
+            ClientFindRepository clientFindRepository,
+            SaleCreateMapper mapper,
+            SaleDetailCreateMapper saleDetailCreateMapper
+    ) {
         this.repository = repository;
         this.clientFindRepository = clientFindRepository;
         this.mapper = mapper;
+        this.saleDetailCreateMapper = saleDetailCreateMapper;
     }
 
     @Override
@@ -30,8 +42,25 @@ public class SaleCreateServiceImpl implements SaleCreateService {
         if (client.isEmpty()) {
             throw new ClientDoesNotExist(dto.clientId());
         }
-        Sale sale = this.mapper.fromDto(dto);
+        Sale sale = new Sale();
+        sale.setCreatedAt(Instant.now());
         sale.setClient(client.get());
+        sale.setSalesDetails(
+                dto.requests()
+                        .stream()
+                        .map(this.saleDetailCreateMapper::fromDto)
+                        .toList()
+        );
+        sale.getSalesDetails().forEach(item -> {
+            item.setSale(sale);
+            item.setClient(client.get());
+        });
+        sale.setTotal(
+                sale.getSalesDetails()
+                        .stream()
+                        .mapToDouble(SaleDetail::getSubtotal)
+                        .sum()
+        );
         return this.mapper.toDto(this.repository.save(sale));
     }
 }

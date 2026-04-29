@@ -1,14 +1,18 @@
 package com.gyl.CrudGyl.sale.create.dto;
 
+import com.gyl.CrudGyl.saleDetail.create.dto.SaleDetailCreateRequestDto;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+
+import java.util.List;
 
 public record SaleCreateRequestDto (
         @NotNull
         @Positive
-        Double total,
+        Long clientId,
 
         @NotNull
-        @Positive
-        Long clientId
+        @NotEmpty
+        List<SaleDetailCreateRequestDto> requests
 ) {}

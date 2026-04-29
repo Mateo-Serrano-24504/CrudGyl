@@ -10,17 +10,5 @@ public record SaleDetailCreateRequestDto (
 
         @NotNull
         @Positive
-        Double unitPrice,
-
-        @NotNull
-        @Positive
-        Double subtotal,
-
-        @NotNull
-        @Positive
-        Long clientId,
-
-        @NotNull
-        @Positive
-        Long saleId
+        Double unitPrice
 ) {}

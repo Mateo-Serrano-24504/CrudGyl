@@ -35,10 +35,10 @@ public class Client {
     @Column(name = "address")
     private String address;
 
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private List<Sale> sales = new ArrayList<>();
 
-    @OneToMany
+    @OneToMany(mappedBy = "client")
     private List<SaleDetail> salesDetails = new ArrayList<>();
 
     public Client(String name, String surname, String mail, String phoneNumber, String address) {
