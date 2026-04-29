@@ -38,9 +38,6 @@ public class Client {
     @OneToMany(mappedBy = "client")
     private List<Sale> sales = new ArrayList<>();
 
-    @OneToMany(mappedBy = "client")
-    private List<SaleDetail> salesDetails = new ArrayList<>();
-
     public Client(String name, String surname, String mail, String phoneNumber, String address) {
         this.name = name;
         this.surname = surname;

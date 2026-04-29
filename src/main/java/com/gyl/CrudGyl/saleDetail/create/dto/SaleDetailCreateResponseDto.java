@@ -5,6 +5,5 @@ public record SaleDetailCreateResponseDto(
         Long amount,
         Double unitPrice,
         Double subtotal,
-        Long clientId,
         Long saleId
 ) {}

@@ -28,10 +28,6 @@ public class SaleDetail {
     private Double subtotal;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
-    private Client client;
-
-    @ManyToOne
     @JoinColumn(name = "sale_id")
     private Sale sale;
 

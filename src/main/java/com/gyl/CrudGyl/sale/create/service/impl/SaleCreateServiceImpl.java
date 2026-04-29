@@ -42,13 +42,12 @@ public class SaleCreateServiceImpl implements SaleCreateService {
         this.saleDetailCreateMapper = saleDetailCreateMapper;
     }
 
-    private SaleDetail fillSaleDetail(Long amount, Long productId, Sale sale, Client client) {
+    private SaleDetail fillSaleDetail(Long amount, Long productId, Sale sale) {
         SaleDetail saleDetail = new SaleDetail();
         Optional<Product> product = this.productFindRepository.findById(productId);
         if (product.isEmpty()) {
             throw new ProductDoesNotExist(productId);
         }
-        saleDetail.setClient(client);
         saleDetail.setSale(sale);
         saleDetail.setProduct(product.get());
         saleDetail.setAmount(amount);
@@ -72,8 +71,7 @@ public class SaleCreateServiceImpl implements SaleCreateService {
                         .map(item -> this.fillSaleDetail(
                                 item.amount(),
                                 item.productId(),
-                                sale,
-                                client.get()
+                                sale
                             )
                         )
                         .toList()
