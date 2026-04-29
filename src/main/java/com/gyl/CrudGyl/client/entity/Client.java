@@ -1,6 +1,7 @@
 package com.gyl.CrudGyl.client.entity;
 
 import com.gyl.CrudGyl.sale.entity.Sale;
+import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -36,6 +37,9 @@ public class Client {
 
     @OneToMany
     private List<Sale> sales = new ArrayList<>();
+
+    @OneToMany
+    private List<SaleDetail> salesDetails = new ArrayList<>();
 
     public Client(String name, String surname, String mail, String phoneNumber, String address) {
         this.name = name;

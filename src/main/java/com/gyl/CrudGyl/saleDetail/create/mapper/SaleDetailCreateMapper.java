@@ -17,7 +17,9 @@ public class SaleDetailCreateMapper {
                 saleDetail.getId(),
                 saleDetail.getAmount(),
                 saleDetail.getUnitPrice(),
-                saleDetail.getSubtotal()
+                saleDetail.getSubtotal(),
+                saleDetail.getClient().getId(),
+                saleDetail.getSale().getId()
         );
     }
 }

@@ -4,5 +4,7 @@ public record SaleDetailCreateResponseDto(
         Long id,
         Long amount,
         Double unitPrice,
-        Double subtotal
+        Double subtotal,
+        Long clientId,
+        Long saleId
 ) {}

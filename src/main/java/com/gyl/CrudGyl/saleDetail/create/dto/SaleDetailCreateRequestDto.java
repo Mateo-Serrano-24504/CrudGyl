@@ -18,9 +18,9 @@ public record SaleDetailCreateRequestDto (
 
         @NotNull
         @Positive
-        Long saleId,
+        Long clientId,
 
         @NotNull
         @Positive
-        Long clientId
+        Long saleId
 ) {}

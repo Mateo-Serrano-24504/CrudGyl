@@ -1,5 +1,7 @@
 package com.gyl.CrudGyl.saleDetail.entity;
 
+import com.gyl.CrudGyl.client.entity.Client;
+import com.gyl.CrudGyl.sale.entity.Sale;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,14 @@ public class SaleDetail {
 
     @Column(name = "subtotal")
     private Double subtotal;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
+
+    @JoinColumn(name = "sale_id")
+    @ManyToOne
+    private Sale sale;
 
     public SaleDetail(Long amount, Double unitPrice, Double subtotal) {
         this.amount = amount;
