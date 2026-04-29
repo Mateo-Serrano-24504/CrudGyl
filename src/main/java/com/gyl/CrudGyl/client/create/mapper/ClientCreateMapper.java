@@ -3,7 +3,10 @@ package com.gyl.CrudGyl.client.create.mapper;
 import com.gyl.CrudGyl.client.create.dto.ClientCreateResponseDto;
 import com.gyl.CrudGyl.client.create.dto.ClientCreateRequestDto;
 import com.gyl.CrudGyl.client.entity.Client;
+import com.gyl.CrudGyl.persistence.EntityState;
 import org.springframework.stereotype.Component;
+
+import java.time.Instant;
 
 @Component
 public class ClientCreateMapper {
@@ -13,7 +16,9 @@ public class ClientCreateMapper {
                 dto.surname(),
                 dto.mail(),
                 dto.phoneNumber(),
-                dto.address()
+                dto.address(),
+                EntityState.ACTIVE,
+                Instant.now()
         );
     }
     public ClientCreateResponseDto toDto(Client client) {
