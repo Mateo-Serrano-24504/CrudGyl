@@ -37,6 +37,9 @@ public class Client {
     private String address;
 
     @Column(name = "valid_since")
+    private Instant validSince;
+
+    @Column(name = "state")
     private EntityState state;
 
     @Column(name = "created_at")
@@ -50,16 +53,12 @@ public class Client {
             String surname,
             String mail,
             String phoneNumber,
-            String address,
-            EntityState state,
-            Instant createdAt
+            String address
     ) {
         this.name = name;
         this.surname = surname;
         this.mail = mail;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.state = state;
-        this.createdAt = createdAt;
     }
 }

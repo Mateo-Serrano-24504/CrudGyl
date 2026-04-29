@@ -16,9 +16,7 @@ public class ClientCreateMapper {
                 dto.surname(),
                 dto.mail(),
                 dto.phoneNumber(),
-                dto.address(),
-                EntityState.ACTIVE,
-                Instant.now()
+                dto.address()
         );
     }
     public ClientCreateResponseDto toDto(Client client) {
