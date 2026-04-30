@@ -44,13 +44,12 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
             throw new RuntimeException("");
         }
         Client client = optionalClient.get();
+        this.historicClientCreateRepository.save(this.createHistoricClient(client, now));
         Client newClient = this.mapper.fromDto(dto);
         newClient.setId(client.getId());
         newClient.setValidSince(now);
-        newClient.setState(client.getState());
         newClient.setCreatedAt(client.getCreatedAt());
         this.repository.save(newClient);
-        this.historicClientCreateRepository.save(this.createHistoricClient(client, now));
         return this.mapper.toDto(newClient);
     }
 }

@@ -15,7 +15,8 @@ public class ClientUpdateMapper {
                 dto.surname(),
                 dto.mail(),
                 dto.phoneNumber(),
-                dto.address()
+                dto.address(),
+                dto.state()
         );
     }
     public ClientUpdateResponseDto toDto(Client client) {

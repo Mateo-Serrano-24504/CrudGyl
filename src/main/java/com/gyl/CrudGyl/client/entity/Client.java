@@ -61,4 +61,19 @@ public class Client {
         this.phoneNumber = phoneNumber;
         this.address = address;
     }
+    public Client(
+            String name,
+            String surname,
+            String mail,
+            String phoneNumber,
+            String address,
+            EntityState state
+    ) {
+        this.name = name;
+        this.surname = surname;
+        this.mail = mail;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.state = state;
+    }
 }
