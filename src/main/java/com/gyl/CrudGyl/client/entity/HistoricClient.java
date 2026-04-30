@@ -44,4 +44,15 @@ public class HistoricClient {
 
     @Column(name = "state")
     private EntityState state;
+
+    public HistoricClient(Client client) {
+        this.clientId = client.getId();
+        this.name = client.getName();
+        this.surname = client.getSurname();
+        this.mail = client.getMail();
+        this.phoneNumber = client.getPhoneNumber();
+        this.address = client.getAddress();
+        this.validFrom = client.getValidSince();
+        this.state = client.getState();
+    }
 }
