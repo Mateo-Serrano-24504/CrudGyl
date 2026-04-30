@@ -1,10 +1,13 @@
 package com.gyl.CrudGyl.sale.entity;
 
+import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.time.Instant;
 
 @Entity
 @Table(name = "sales_details")
@@ -24,6 +27,15 @@ public class SaleDetail {
 
     @Column(name = "subtotal")
     private Double subtotal;
+
+    @Column(name = "valid_since")
+    private Instant validSince;
+
+    @Column(name = "state")
+    private EntityState state;
+
+    @Column(name = "created_at")
+    private Instant createdAt;
 
     @ManyToOne
     @JoinColumn(name = "sale_id")

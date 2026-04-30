@@ -1,6 +1,7 @@
 package com.gyl.CrudGyl.sale.entity;
 
 import com.gyl.CrudGyl.client.entity.Client;
+import com.gyl.CrudGyl.persistence.EntityState;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,11 +21,17 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "date")
-    Instant createdAt;
-
     @Column(name = "total")
     Double total;
+
+    @Column(name = "valid_since")
+    private Instant validSince;
+
+    @Column(name = "state")
+    private EntityState state;
+
+    @Column(name = "date")
+    Instant createdAt;
 
     @ManyToOne
     @JoinColumn(name = "client_id")

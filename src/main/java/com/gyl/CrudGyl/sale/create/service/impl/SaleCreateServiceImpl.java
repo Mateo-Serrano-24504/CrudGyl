@@ -1,6 +1,7 @@
 package com.gyl.CrudGyl.sale.create.service.impl;
 
 import com.gyl.CrudGyl.client.entity.Client;
+import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.sale.create.dto.SaleCreateRequestDto;
 import com.gyl.CrudGyl.sale.create.dto.SaleCreateResponseDto;
@@ -38,12 +39,15 @@ public class SaleCreateServiceImpl implements SaleCreateService {
         this.mapper = mapper;
     }
 
-    private SaleDetail fillSaleDetail(Long amount, Long productId, Sale sale) {
+    private SaleDetail fillSaleDetail(Instant now, Long amount, Long productId, Sale sale) {
         SaleDetail saleDetail = new SaleDetail();
         Optional<Product> product = this.productFindRepository.findById(productId);
         if (product.isEmpty()) {
             throw new ProductDoesNotExist(productId);
         }
+        saleDetail.setValidSince(now);
+        saleDetail.setState(EntityState.ACTIVE);
+        saleDetail.setCreatedAt(now);
         saleDetail.setSale(sale);
         saleDetail.setProduct(product.get());
         saleDetail.setAmount(amount);
@@ -54,17 +58,21 @@ public class SaleCreateServiceImpl implements SaleCreateService {
 
     @Override
     public SaleCreateResponseDto create(SaleCreateRequestDto dto) {
+        Instant now = Instant.now();
         Optional<Client> client = this.clientFindRepository.findById(dto.clientId());
         if (client.isEmpty()) {
             throw new ClientDoesNotExist(dto.clientId());
         }
         Sale sale = new Sale();
-        sale.setCreatedAt(Instant.now());
+        sale.setValidSince(now);
+        sale.setState(EntityState.ACTIVE);
+        sale.setCreatedAt(now);
         sale.setClient(client.get());
         sale.setSalesDetails(
                 dto.details()
                         .stream()
                         .map(item -> this.fillSaleDetail(
+                                now,
                                 item.amount(),
                                 item.productId(),
                                 sale
