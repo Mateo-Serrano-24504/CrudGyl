@@ -1,0 +1,44 @@
+package com.gyl.CrudGyl.client.update.service.impl;
+
+import com.gyl.CrudGyl.client.entity.Client;
+import com.gyl.CrudGyl.client.update.dto.ClientUpdateRequestDto;
+import com.gyl.CrudGyl.client.update.dto.ClientUpdateResponseDto;
+import com.gyl.CrudGyl.client.update.mapper.ClientUpdateMapper;
+import com.gyl.CrudGyl.client.update.repository.ClientUpdateRepository;
+import com.gyl.CrudGyl.client.update.service.ClientUpdateService;
+import jakarta.transaction.Transactional;
+import org.springframework.stereotype.Service;
+
+import java.time.Instant;
+import java.util.Optional;
+
+@Service
+@Transactional
+public class ClientUpdateServiceImpl implements ClientUpdateService {
+    private final ClientUpdateRepository repository;
+    private final ClientUpdateMapper mapper;
+    public ClientUpdateServiceImpl(
+            ClientUpdateRepository repository,
+            ClientUpdateMapper mapper
+    ) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
+
+    @Override
+    public ClientUpdateResponseDto update(Long id, ClientUpdateRequestDto dto) {
+        Instant now = Instant.now();
+        Optional<Client> optionalClient = this.repository.findById(id);
+        if (optionalClient.isEmpty()) {
+            throw new RuntimeException("");
+        }
+        Client client = optionalClient.get();
+        Client newClient = this.mapper.fromDto(dto);
+        newClient.setId(client.getId());
+        newClient.setValidSince(now);
+        newClient.setState(client.getState());
+        newClient.setCreatedAt(client.getCreatedAt());
+        this.repository.save(newClient);
+        return this.mapper.toDto(newClient);
+    }
+}
