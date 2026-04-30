@@ -1,15 +1,12 @@
 package com.gyl.CrudGyl.productType.entity;
 
 import com.gyl.CrudGyl.persistence.EntityState;
-import com.gyl.CrudGyl.product.entity.Product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "product_types")
@@ -36,11 +33,14 @@ public class ProductType {
     @Column(name = "created_at")
     private Instant createdAt;
 
-    @OneToMany(mappedBy = "productType")
-    private List<Product> products = new ArrayList<>();
-
     public ProductType(String name, String description) {
         this.name = name;
         this.description = description;
+    }
+
+    public ProductType(String name, String description, EntityState state) {
+        this.name = name;
+        this.description = description;
+        this.state = state;
     }
 }

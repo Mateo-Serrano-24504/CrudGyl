@@ -35,4 +35,12 @@ public class HistoricProductType {
 
     @Column(name = "state")
     private EntityState state;
+
+    public HistoricProductType(ProductType productType) {
+        this.productTypeId = productType.getId();
+        this.name = productType.getName();
+        this.description = productType.getDescription();
+        this.validFrom = productType.getValidSince();
+        this.state = productType.getState();
+    }
 }
