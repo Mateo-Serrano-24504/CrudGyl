@@ -52,4 +52,10 @@ public class Product {
         this.price = price;
         this.stock = stock;
     }
+    public Product(String name, Double price, Long stock, EntityState state) {
+        this.name = name;
+        this.price = price;
+        this.stock = stock;
+        this.state = state;
+    }
 }

@@ -1,7 +1,6 @@
 package com.gyl.CrudGyl.product.entity;
 
 import com.gyl.CrudGyl.persistence.EntityState;
-import com.gyl.CrudGyl.productType.entity.ProductType;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,9 +30,8 @@ public class HistoricProduct {
     @Column(name = "stock")
     private Long stock;
 
-    @ManyToOne
-    @JoinColumn(name = "product_type_id")
-    private ProductType productType;
+    @Column(name = "product_type_id")
+    private Long productTypeId;
 
     @Column(name = "valid_from")
     private Instant validFrom;
@@ -43,4 +41,14 @@ public class HistoricProduct {
 
     @Column(name = "state")
     private EntityState state;
+
+    public HistoricProduct(Product product) {
+        this.productId = product.getId();
+        this.name = product.getName();
+        this.price = product.getPrice();
+        this.stock = product.getStock();
+        this.state = product.getState();
+        this.validFrom = product.getValidSince();
+        this.productTypeId = product.getProductType().getId();
+    }
 }
