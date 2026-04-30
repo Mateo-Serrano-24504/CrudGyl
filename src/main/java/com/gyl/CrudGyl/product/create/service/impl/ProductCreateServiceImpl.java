@@ -5,11 +5,11 @@ import com.gyl.CrudGyl.product.create.dto.ProductCreateRequestDto;
 import com.gyl.CrudGyl.product.create.exception.ProductTypeDoesNotExist;
 import com.gyl.CrudGyl.product.create.mapper.ProductCreateMapper;
 import com.gyl.CrudGyl.product.create.repository.ProductCreateRepository;
-import com.gyl.CrudGyl.product.create.repository.ProductTypeFindRepository;
 import com.gyl.CrudGyl.product.create.service.ProductCreateService;
 import com.gyl.CrudGyl.product.create.dto.ProductCreateResponseDto;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.productType.entity.ProductType;
+import com.gyl.CrudGyl.productType.read.repository.ProductTypeReadRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -20,23 +20,23 @@ import java.util.Optional;
 @Transactional
 public class ProductCreateServiceImpl implements ProductCreateService {
     private final ProductCreateRepository repository;
-    private final ProductTypeFindRepository productTypeFindRepository;
+    private final ProductTypeReadRepository productTypeReadRepository;
     private final ProductCreateMapper mapper;
 
     public ProductCreateServiceImpl(
             ProductCreateRepository repository,
-            ProductTypeFindRepository productTypeFindRepository,
+            ProductTypeReadRepository productTypeReadRepository,
             ProductCreateMapper mapper
     ) {
         this.repository = repository;
-        this.productTypeFindRepository = productTypeFindRepository;
+        this.productTypeReadRepository = productTypeReadRepository;
         this.mapper = mapper;
     }
 
     @Override
     public ProductCreateResponseDto create(ProductCreateRequestDto dto) {
         Instant now = Instant.now();
-        Optional<ProductType> productType = this.productTypeFindRepository.findById(dto.productTypeId());
+        Optional<ProductType> productType = this.productTypeReadRepository.findById(dto.productTypeId());
         if (productType.isEmpty()) {
             throw new ProductTypeDoesNotExist(dto.productTypeId());
         }

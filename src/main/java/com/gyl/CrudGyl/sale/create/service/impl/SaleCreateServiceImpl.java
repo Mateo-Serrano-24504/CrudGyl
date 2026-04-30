@@ -1,15 +1,15 @@
 package com.gyl.CrudGyl.sale.create.service.impl;
 
 import com.gyl.CrudGyl.client.entity.Client;
+import com.gyl.CrudGyl.client.read.repository.ClientReadRepository;
 import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
+import com.gyl.CrudGyl.product.read.repository.ProductReadRepository;
 import com.gyl.CrudGyl.sale.create.dto.SaleCreateRequestDto;
 import com.gyl.CrudGyl.sale.create.dto.SaleCreateResponseDto;
 import com.gyl.CrudGyl.sale.create.exception.ClientDoesNotExist;
 import com.gyl.CrudGyl.sale.create.exception.ProductDoesNotExist;
 import com.gyl.CrudGyl.sale.create.mapper.SaleCreateMapper;
-import com.gyl.CrudGyl.sale.create.repository.ClientFindRepository;
-import com.gyl.CrudGyl.sale.create.repository.ProductFindRepository;
 import com.gyl.CrudGyl.sale.create.repository.SaleCreateRepository;
 import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
 import com.gyl.CrudGyl.sale.entity.Sale;
@@ -24,24 +24,24 @@ import java.util.Optional;
 @Transactional
 public class SaleCreateServiceImpl implements SaleCreateService {
     private final SaleCreateRepository repository;
-    private final ClientFindRepository clientFindRepository;
-    private final ProductFindRepository productFindRepository;
+    private final ClientReadRepository clientReadRepository;
+    private final ProductReadRepository productReadRepository;
     private final SaleCreateMapper mapper;
     public SaleCreateServiceImpl(
             SaleCreateRepository repository,
-            ClientFindRepository clientFindRepository,
-            ProductFindRepository productFindRepository,
+            ClientReadRepository clientReadRepository,
+            ProductReadRepository productReadRepository,
             SaleCreateMapper mapper
     ) {
         this.repository = repository;
-        this.clientFindRepository = clientFindRepository;
-        this.productFindRepository = productFindRepository;
+        this.clientReadRepository = clientReadRepository;
+        this.productReadRepository = productReadRepository;
         this.mapper = mapper;
     }
 
     private SaleDetail fillSaleDetail(Instant now, Long amount, Long productId, Sale sale) {
         SaleDetail saleDetail = new SaleDetail();
-        Optional<Product> product = this.productFindRepository.findById(productId);
+        Optional<Product> product = this.productReadRepository.findById(productId);
         if (product.isEmpty()) {
             throw new ProductDoesNotExist(productId);
         }
@@ -59,7 +59,7 @@ public class SaleCreateServiceImpl implements SaleCreateService {
     @Override
     public SaleCreateResponseDto create(SaleCreateRequestDto dto) {
         Instant now = Instant.now();
-        Optional<Client> client = this.clientFindRepository.findById(dto.clientId());
+        Optional<Client> client = this.clientReadRepository.findById(dto.clientId());
         if (client.isEmpty()) {
             throw new ClientDoesNotExist(dto.clientId());
         }
