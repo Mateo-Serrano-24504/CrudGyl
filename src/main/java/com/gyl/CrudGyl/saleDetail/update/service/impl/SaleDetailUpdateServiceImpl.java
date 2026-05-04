@@ -1,14 +1,14 @@
 package com.gyl.CrudGyl.saleDetail.update.service.impl;
 
+import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.sale.entity.Sale;
 import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import com.gyl.CrudGyl.saleDetail.update.dto.SaleDetailUpdateRequestDto;
 import com.gyl.CrudGyl.saleDetail.update.dto.SaleDetailUpdateResponseDto;
-import com.gyl.CrudGyl.saleDetail.update.exception.SaleDetailUpdateProductDoesNotExist;
+import com.gyl.CrudGyl.saleDetail.update.exception.SaleDetailUpdateProductIdDoesNotMatch;
 import com.gyl.CrudGyl.saleDetail.update.exception.SaleDetailUpdateSaleDetailDoesNotExist;
 import com.gyl.CrudGyl.saleDetail.update.mapper.SaleDetailUpdateMapper;
-import com.gyl.CrudGyl.saleDetail.update.repository.SaleDetailUpdateProductRepository;
 import com.gyl.CrudGyl.saleDetail.update.repository.SaleDetailUpdateRepository;
 import com.gyl.CrudGyl.saleDetail.update.service.SaleDetailUpdateService;
 import jakarta.transaction.Transactional;
@@ -22,15 +22,12 @@ import java.util.Optional;
 @Transactional
 public class SaleDetailUpdateServiceImpl implements SaleDetailUpdateService {
     private final SaleDetailUpdateRepository repository;
-    private final SaleDetailUpdateProductRepository productRepository;
     private final SaleDetailUpdateMapper mapper;
     public SaleDetailUpdateServiceImpl(
             SaleDetailUpdateRepository repository,
-            SaleDetailUpdateProductRepository productRepository,
             SaleDetailUpdateMapper mapper
     ) {
         this.repository = repository;
-        this.productRepository = productRepository;
         this.mapper = mapper;
     }
 
@@ -39,11 +36,7 @@ public class SaleDetailUpdateServiceImpl implements SaleDetailUpdateService {
         if (Objects.equals(originalProductId, dto.productId())) {
             return original.getProduct();
         }
-        Optional<Product> optionalProduct = this.productRepository.findById(dto.productId());
-        if (optionalProduct.isEmpty()) {
-            throw new SaleDetailUpdateProductDoesNotExist(dto.productId());
-        }
-        return optionalProduct.get();
+        throw new SaleDetailUpdateProductIdDoesNotMatch(originalProductId, dto.productId());
     }
 
     private SaleDetail makeSaleDetail(SaleDetail original, SaleDetailUpdateRequestDto dto, Instant validationTime) {
@@ -70,7 +63,8 @@ public class SaleDetailUpdateServiceImpl implements SaleDetailUpdateService {
         SaleDetail newSaleDetail = this.makeSaleDetail(saleDetail, dto, now);
 
         Sale sale = saleDetail.getSale();
-        sale.setTotal(sale.getTotal() - saleDetail.getSubtotal() + newSaleDetail.getSubtotal());
+        double newSubtotal = newSaleDetail.getState() == EntityState.ACTIVE ? newSaleDetail.getSubtotal() : 0d;
+        sale.setTotal(sale.getTotal() - saleDetail.getSubtotal() + newSubtotal);
         sale.setValidSince(now);
         return this.mapper.toDto(this.repository.save(newSaleDetail));
     }

@@ -19,9 +19,9 @@ public class SaleDetailUpdateExceptionHandler {
                 .body(new ErrorFormat(message, List.of(ex.getMessage())));
     }
 
-    @ExceptionHandler(SaleDetailUpdateProductDoesNotExist.class)
+    @ExceptionHandler(SaleDetailUpdateProductIdDoesNotMatch.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(SaleDetailUpdateProductDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(SaleDetailUpdateProductIdDoesNotMatch ex) {
         String message = "Error in sale detail update";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ErrorFormat(message, List.of(ex.getMessage())));
