@@ -1,6 +1,7 @@
 package com.gyl.CrudGyl.sale.read.mapper;
 
 import com.gyl.CrudGyl.sale.entity.Sale;
+import com.gyl.CrudGyl.sale.read.dto.SaleReadPageResponseDto;
 import com.gyl.CrudGyl.sale.read.dto.SaleReadResponseDto;
 import org.springframework.stereotype.Component;
 
@@ -23,6 +24,16 @@ public class SaleReadMapper {
                 sale.getSalesDetails().stream()
                         .map(this.saleDetailReadMapper::toDto)
                         .toList()
+        );
+    }
+    public SaleReadPageResponseDto toPageDto(Sale sale) {
+        return new SaleReadPageResponseDto(
+                sale.getId(),
+                sale.getTotal(),
+                sale.getValidSince().atOffset(ZoneOffset.UTC),
+                sale.getState(),
+                sale.getCreatedAt().atOffset(ZoneOffset.UTC),
+                sale.getClient().getId()
         );
     }
 }

@@ -1,7 +1,7 @@
 package com.gyl.CrudGyl.sale.read.exception;
 
 import com.gyl.CrudGyl.exception.ErrorFormat;
-import com.gyl.CrudGyl.sale.controller.SaleReadController;
+import com.gyl.CrudGyl.sale.read.controller.SaleReadController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
