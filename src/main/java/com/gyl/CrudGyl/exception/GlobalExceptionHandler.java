@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
                 .body(new ErrorFormat(prefix, errors));
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
+    @SuppressWarnings("unused")
     public ResponseEntity<ErrorFormat> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
         String prefix = "Database constraint violation occurred";
         return ResponseEntity.status(HttpStatus.CONFLICT).body(
