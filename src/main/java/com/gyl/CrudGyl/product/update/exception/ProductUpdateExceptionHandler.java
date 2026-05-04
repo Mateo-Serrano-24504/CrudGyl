@@ -1,7 +1,7 @@
 package com.gyl.CrudGyl.product.update.exception;
 
 import com.gyl.CrudGyl.exception.ErrorFormat;
-import com.gyl.CrudGyl.product.controller.ProductUpdateController;
+import com.gyl.CrudGyl.product.update.controller.ProductUpdateController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

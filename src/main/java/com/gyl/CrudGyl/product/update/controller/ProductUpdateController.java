@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.product.controller;
+package com.gyl.CrudGyl.product.update.controller;
 
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateRequestDto;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateResponseDto;
