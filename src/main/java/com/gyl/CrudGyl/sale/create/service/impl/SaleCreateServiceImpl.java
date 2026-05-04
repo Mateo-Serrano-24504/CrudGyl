@@ -13,7 +13,7 @@ import com.gyl.CrudGyl.sale.create.mapper.SaleCreateMapper;
 import com.gyl.CrudGyl.sale.create.repository.SaleCreateRepository;
 import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
 import com.gyl.CrudGyl.sale.entity.Sale;
-import com.gyl.CrudGyl.sale.entity.SaleDetail;
+import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 

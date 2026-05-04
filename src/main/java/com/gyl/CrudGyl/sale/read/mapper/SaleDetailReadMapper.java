@@ -1,6 +1,6 @@
 package com.gyl.CrudGyl.sale.read.mapper;
 
-import com.gyl.CrudGyl.sale.entity.SaleDetail;
+import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import com.gyl.CrudGyl.sale.read.dto.SaleDetailReadResponseDto;
 import org.springframework.stereotype.Component;
 

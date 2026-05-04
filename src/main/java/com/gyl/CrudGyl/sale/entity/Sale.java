@@ -2,6 +2,7 @@ package com.gyl.CrudGyl.sale.entity;
 
 import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.persistence.EntityState;
+import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

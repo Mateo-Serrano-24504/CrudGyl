@@ -1,7 +1,8 @@
-package com.gyl.CrudGyl.sale.entity;
+package com.gyl.CrudGyl.saleDetail.entity;
 
 import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
+import com.gyl.CrudGyl.sale.entity.Sale;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
