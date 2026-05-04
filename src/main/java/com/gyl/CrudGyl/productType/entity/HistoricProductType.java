@@ -18,22 +18,22 @@ public class HistoricProductType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "product_type_id")
+    @Column(name = "product_type_id", nullable = false)
     private Long productTypeId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "valid_from")
+    @Column(name = "valid_from", nullable = false)
     private Instant validFrom;
 
-    @Column(name = "valid_to")
+    @Column(name = "valid_to", nullable = false)
     private Instant validTo;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
     public HistoricProductType(ProductType productType) {

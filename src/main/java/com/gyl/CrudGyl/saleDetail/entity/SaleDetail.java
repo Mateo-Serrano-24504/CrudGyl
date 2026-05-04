@@ -20,30 +20,30 @@ public class SaleDetail {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "amount")
+    @Column(name = "amount", nullable = false)
     private Long amount;
 
-    @Column(name = "unit_price")
+    @Column(name = "unit_price", nullable = false)
     private Double unitPrice;
 
-    @Column(name = "subtotal")
+    @Column(name = "subtotal", nullable = false)
     private Double subtotal;
 
-    @Column(name = "valid_since")
+    @Column(name = "valid_since", nullable = false)
     private Instant validSince;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "sale_id")
+    @JoinColumn(name = "sale_id", nullable = false)
     private Sale sale;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
 
     public SaleDetail(Long amount, EntityState state) {

@@ -21,28 +21,28 @@ public class Client {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "mail")
+    @Column(name = "mail", nullable = false, unique = true)
     private String mail;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false, unique = true)
     private String phoneNumber;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "valid_since")
+    @Column(name = "valid_since", nullable = false)
     private Instant validSince;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     @OneToMany(mappedBy = "client")

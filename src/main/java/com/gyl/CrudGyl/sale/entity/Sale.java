@@ -22,20 +22,20 @@ public class Sale {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "total")
+    @Column(name = "total", nullable = false)
     Double total;
 
-    @Column(name = "valid_since")
+    @Column(name = "valid_since", nullable = false)
     private Instant validSince;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
     Instant createdAt;
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
     @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)

@@ -18,31 +18,31 @@ public class HistoricClient {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "client_id")
+    @Column(name = "client_id", nullable = false)
     private Long clientId;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Column(name = "surname")
     private String surname;
 
-    @Column(name = "mail")
+    @Column(name = "mail", nullable = false)
     private String mail;
 
-    @Column(name = "phone_number")
+    @Column(name = "phone_number", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "address")
+    @Column(name = "address", nullable = false)
     private String address;
 
-    @Column(name = "valid_from")
+    @Column(name = "valid_from", nullable = false)
     private Instant validFrom;
 
-    @Column(name = "valid_to")
+    @Column(name = "valid_to", nullable = false)
     private Instant validTo;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
     public HistoricClient(Client client) {

@@ -18,19 +18,19 @@ public class ProductType {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
     @Column(name = "description")
     private String description;
 
-    @Column(name = "valid_since")
+    @Column(name = "valid_since", nullable = false)
     private Instant validSince;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     public ProductType(String name, String description) {

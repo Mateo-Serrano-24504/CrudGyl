@@ -1,5 +1,7 @@
 package com.gyl.CrudGyl.exception;
 
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -21,5 +23,12 @@ public class GlobalExceptionHandler {
                 .toList();
         return ResponseEntity.badRequest()
                 .body(new ErrorFormat(prefix, errors));
+    }
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ErrorFormat> handleDataIntegrityViolation(DataIntegrityViolationException ex) {
+        String prefix = "Database constraint violation occurred";
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(
+                new ErrorFormat(prefix, List.of(ex.getMessage()))
+        );
     }
 }

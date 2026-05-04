@@ -22,26 +22,26 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-    @Column(name = "name")
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "price")
+    @Column(name = "price", nullable = false)
     private Double price;
 
-    @Column(name = "stock")
+    @Column(name = "stock", nullable = false)
     private Long stock;
 
     @ManyToOne
-    @JoinColumn(name = "product_type_id")
+    @JoinColumn(name = "product_type_id", nullable = false)
     private ProductType productType;
 
-    @Column(name = "valid_since")
+    @Column(name = "valid_since", nullable = false)
     private Instant validSince;
 
-    @Column(name = "state")
+    @Column(name = "state", nullable = false)
     private EntityState state;
 
-    @Column(name = "created_at")
+    @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
     @OneToMany(mappedBy = "product")
