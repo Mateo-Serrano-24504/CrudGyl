@@ -1,7 +1,7 @@
 package com.gyl.CrudGyl.product.read.service.impl;
 
 import com.gyl.CrudGyl.product.read.dto.ProductReadResponseDto;
-import com.gyl.CrudGyl.product.read.exception.ProductDoesNotExist;
+import com.gyl.CrudGyl.product.read.exception.ProductReadProductDoesNotExist;
 import com.gyl.CrudGyl.product.read.mapper.ProductReadMapper;
 import com.gyl.CrudGyl.product.read.repository.ProductReadRepository;
 import com.gyl.CrudGyl.product.read.service.ProductReadService;
@@ -21,6 +21,6 @@ public class ProductReadServiceImpl implements ProductReadService {
         return this.repository
                 .findById(id)
                 .map(this.mapper::toDto)
-                .orElseThrow(() -> new ProductDoesNotExist(id));
+                .orElseThrow(() -> new ProductReadProductDoesNotExist(id));
     }
 }

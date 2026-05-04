@@ -12,18 +12,18 @@ import java.util.List;
 @ControllerAdvice(assignableTypes = SaleCreateController.class)
 public class SaleCreateExceptionHandler {
 
-    @ExceptionHandler(ClientDoesNotExist.class)
+    @ExceptionHandler(SaleCreateClientDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(ClientDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(SaleCreateClientDoesNotExist ex) {
         String prefix = "Error during sale creation";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))
         );
     }
 
-    @ExceptionHandler(ProductDoesNotExist.class)
+    @ExceptionHandler(SaleCreateProductDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(ProductDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(SaleCreateProductDoesNotExist ex) {
         String prefix = "Error during sale creation";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))

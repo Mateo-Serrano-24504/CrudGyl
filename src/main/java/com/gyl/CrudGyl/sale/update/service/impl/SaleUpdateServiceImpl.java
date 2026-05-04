@@ -5,6 +5,8 @@ import com.gyl.CrudGyl.client.read.repository.ClientReadRepository;
 import com.gyl.CrudGyl.sale.entity.Sale;
 import com.gyl.CrudGyl.sale.update.dto.SaleUpdateRequestDto;
 import com.gyl.CrudGyl.sale.update.dto.SaleUpdateResponseDto;
+import com.gyl.CrudGyl.sale.update.exception.SaleUpdateClientDoesNotExist;
+import com.gyl.CrudGyl.sale.update.exception.SaleUpdateSaleDoesNotExist;
 import com.gyl.CrudGyl.sale.update.mapper.SaleUpdateMapper;
 import com.gyl.CrudGyl.sale.update.repository.SaleUpdateRepository;
 import com.gyl.CrudGyl.sale.update.service.SaleUpdateService;
@@ -35,11 +37,11 @@ public class SaleUpdateServiceImpl implements SaleUpdateService {
         Instant now = Instant.now();
         Optional<Sale> optionalSale = this.repository.findById(id);
         if (optionalSale.isEmpty()) {
-            throw new RuntimeException("");
+            throw new SaleUpdateSaleDoesNotExist(id);
         }
         Optional<Client> optionalClient = this.clientReadRepository.findById(dto.clientId());
         if (optionalClient.isEmpty()) {
-            throw new RuntimeException("");
+            throw new SaleUpdateClientDoesNotExist(dto.clientId());
         }
         Sale sale = optionalSale.get();
         Client client = optionalClient.get();

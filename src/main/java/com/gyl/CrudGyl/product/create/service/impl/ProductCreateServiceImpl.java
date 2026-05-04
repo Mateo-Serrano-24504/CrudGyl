@@ -2,7 +2,7 @@ package com.gyl.CrudGyl.product.create.service.impl;
 
 import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.create.dto.ProductCreateRequestDto;
-import com.gyl.CrudGyl.product.create.exception.ProductTypeDoesNotExist;
+import com.gyl.CrudGyl.product.create.exception.ProductCreateProductTypeDoesNotExist;
 import com.gyl.CrudGyl.product.create.mapper.ProductCreateMapper;
 import com.gyl.CrudGyl.product.create.repository.ProductCreateRepository;
 import com.gyl.CrudGyl.product.create.service.ProductCreateService;
@@ -38,7 +38,7 @@ public class ProductCreateServiceImpl implements ProductCreateService {
         Instant now = Instant.now();
         Optional<ProductType> productType = this.productTypeReadRepository.findById(dto.productTypeId());
         if (productType.isEmpty()) {
-            throw new ProductTypeDoesNotExist(dto.productTypeId());
+            throw new ProductCreateProductTypeDoesNotExist(dto.productTypeId());
         }
         Product product = this.mapper.fromDto(dto);
         product.setProductType(productType.get());

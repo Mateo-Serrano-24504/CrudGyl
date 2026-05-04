@@ -7,8 +7,8 @@ import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.product.read.repository.ProductReadRepository;
 import com.gyl.CrudGyl.sale.create.dto.SaleCreateRequestDto;
 import com.gyl.CrudGyl.sale.create.dto.SaleCreateResponseDto;
-import com.gyl.CrudGyl.sale.create.exception.ClientDoesNotExist;
-import com.gyl.CrudGyl.sale.create.exception.ProductDoesNotExist;
+import com.gyl.CrudGyl.sale.create.exception.SaleCreateClientDoesNotExist;
+import com.gyl.CrudGyl.sale.create.exception.SaleCreateProductDoesNotExist;
 import com.gyl.CrudGyl.sale.create.mapper.SaleCreateMapper;
 import com.gyl.CrudGyl.sale.create.repository.SaleCreateRepository;
 import com.gyl.CrudGyl.sale.create.service.SaleCreateService;
@@ -43,7 +43,7 @@ public class SaleCreateServiceImpl implements SaleCreateService {
         SaleDetail saleDetail = new SaleDetail();
         Optional<Product> product = this.productReadRepository.findById(productId);
         if (product.isEmpty()) {
-            throw new ProductDoesNotExist(productId);
+            throw new SaleCreateProductDoesNotExist(productId);
         }
         saleDetail.setValidSince(now);
         saleDetail.setState(EntityState.ACTIVE);
@@ -61,7 +61,7 @@ public class SaleCreateServiceImpl implements SaleCreateService {
         Instant now = Instant.now();
         Optional<Client> client = this.clientReadRepository.findById(dto.clientId());
         if (client.isEmpty()) {
-            throw new ClientDoesNotExist(dto.clientId());
+            throw new SaleCreateClientDoesNotExist(dto.clientId());
         }
         Sale sale = new Sale();
         sale.setValidSince(now);

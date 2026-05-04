@@ -2,7 +2,7 @@ package com.gyl.CrudGyl.client.read.service.impl;
 
 import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.client.read.dto.ClientReadResponseDto;
-import com.gyl.CrudGyl.client.read.exception.ClientDoesNotExist;
+import com.gyl.CrudGyl.client.read.exception.ClientReadClientDoesNotExist;
 import com.gyl.CrudGyl.client.read.mapper.ClientReadMapper;
 import com.gyl.CrudGyl.client.read.repository.ClientReadRepository;
 import com.gyl.CrudGyl.client.read.service.ClientReadService;
@@ -27,7 +27,7 @@ public class ClientReadServiceImpl implements ClientReadService {
     public ClientReadResponseDto read(Long id) {
         Optional<Client> client = this.repository.findById(id);
         if (client.isEmpty()) {
-            throw new ClientDoesNotExist(id);
+            throw new ClientReadClientDoesNotExist(id);
         }
         return this.mapper.toDto(client.get());
     }

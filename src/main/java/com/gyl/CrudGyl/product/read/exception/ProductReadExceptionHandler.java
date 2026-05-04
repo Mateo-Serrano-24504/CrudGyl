@@ -12,9 +12,9 @@ import java.util.List;
 @ControllerAdvice(assignableTypes = ProductReadController.class)
 public class ProductReadExceptionHandler {
 
-    @ExceptionHandler(ProductDoesNotExist.class)
+    @ExceptionHandler(ProductReadProductDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(ProductDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleProductDoesNotExist(ProductReadProductDoesNotExist ex) {
         String prefix = "Error during product reading";
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))

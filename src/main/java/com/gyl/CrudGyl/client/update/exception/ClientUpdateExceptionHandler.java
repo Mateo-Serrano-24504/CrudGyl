@@ -11,9 +11,9 @@ import java.util.List;
 
 @ControllerAdvice(assignableTypes = ClientUpdateController.class)
 public class ClientUpdateExceptionHandler {
-    @ExceptionHandler(ClientDoesNotExist.class)
+    @ExceptionHandler(ClientUpdateClientDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(ClientDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(ClientUpdateClientDoesNotExist ex) {
         String prefix = "Error during client update";
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))
