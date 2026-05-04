@@ -4,6 +4,8 @@ import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.sale.entity.Sale;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,4 +47,9 @@ public class SaleDetail {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public SaleDetail(Long amount, EntityState state) {
+        this.amount = amount;
+        this.state = state;
+    }
 }
