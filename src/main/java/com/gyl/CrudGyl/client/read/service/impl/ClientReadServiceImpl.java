@@ -8,8 +8,6 @@ import com.gyl.CrudGyl.client.read.repository.ClientReadRepository;
 import com.gyl.CrudGyl.client.read.service.ClientReadService;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class ClientReadServiceImpl implements ClientReadService {
     private final ClientReadRepository repository;
@@ -25,10 +23,9 @@ public class ClientReadServiceImpl implements ClientReadService {
 
     @Override
     public ClientReadResponseDto read(Long id) {
-        Optional<Client> client = this.repository.findById(id);
-        if (client.isEmpty()) {
-            throw new ClientReadClientDoesNotExist(id);
-        }
-        return this.mapper.toDto(client.get());
+        Client client = this.repository
+                .findById(id)
+                .orElseThrow(() -> new ClientReadClientDoesNotExist(id));
+        return this.mapper.toDto(client);
     }
 }

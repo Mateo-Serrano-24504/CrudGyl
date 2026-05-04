@@ -2,6 +2,7 @@ package com.gyl.CrudGyl.client.update.service.impl;
 
 import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.client.entity.HistoricClient;
+import com.gyl.CrudGyl.client.update.builder.ClientUpdateClientBuilder;
 import com.gyl.CrudGyl.client.update.dto.ClientUpdateRequestDto;
 import com.gyl.CrudGyl.client.update.dto.ClientUpdateResponseDto;
 import com.gyl.CrudGyl.client.update.exception.ClientUpdateClientDoesNotExist;
@@ -13,7 +14,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -21,14 +21,17 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
     private final ClientUpdateRepository repository;
     private final HistoricClientCreateRepository historicClientCreateRepository;
     private final ClientUpdateMapper mapper;
+    private final ClientUpdateClientBuilder builder;
     public ClientUpdateServiceImpl(
             ClientUpdateRepository repository,
             HistoricClientCreateRepository historicClientCreateRepository,
-            ClientUpdateMapper mapper
+            ClientUpdateMapper mapper,
+            ClientUpdateClientBuilder builder
     ) {
         this.repository = repository;
         this.historicClientCreateRepository = historicClientCreateRepository;
         this.mapper = mapper;
+        this.builder = builder;
     }
 
     private HistoricClient createHistoricClient(Client oldClient, Instant invalidationTime) {
@@ -40,17 +43,13 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
     @Override
     public ClientUpdateResponseDto update(Long id, ClientUpdateRequestDto dto) {
         Instant now = Instant.now();
-        Optional<Client> optionalClient = this.repository.findById(id);
-        if (optionalClient.isEmpty()) {
-            throw new ClientUpdateClientDoesNotExist(id);
-        }
-        Client client = optionalClient.get();
+        Client client = this.repository
+                .findById(id)
+                .orElseThrow(() -> new ClientUpdateClientDoesNotExist(id));
         this.historicClientCreateRepository.save(this.createHistoricClient(client, now));
-        Client newClient = this.mapper.fromDto(dto);
-        newClient.setId(client.getId());
-        newClient.setValidSince(now);
-        newClient.setCreatedAt(client.getCreatedAt());
-        this.repository.save(newClient);
-        return this.mapper.toDto(newClient);
+        Client newClient = this.builder.build(client, dto, now);
+        return this.mapper.toDto(
+                this.repository.save(newClient)
+        );
     }
 }
