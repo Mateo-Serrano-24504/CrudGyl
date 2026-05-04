@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.sale.read.dto;
+package com.gyl.CrudGyl.sale.readPage.dto;
 
 import com.gyl.CrudGyl.persistence.EntityState;
 

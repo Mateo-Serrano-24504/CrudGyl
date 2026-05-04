@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.sale.read.spec;
+package com.gyl.CrudGyl.sale.readPage.spec;
 
 import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.sale.entity.Sale;
