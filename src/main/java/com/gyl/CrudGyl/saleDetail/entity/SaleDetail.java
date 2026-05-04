@@ -45,4 +45,9 @@ public class SaleDetail {
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
+
+    public SaleDetail(Long amount, EntityState state) {
+        this.amount = amount;
+        this.state = state;
+    }
 }
