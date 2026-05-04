@@ -11,9 +11,9 @@ import java.util.List;
 
 @ControllerAdvice(assignableTypes = ClientReadController.class)
 public class ClientReadExceptionHandler {
-    @ExceptionHandler(ClientDoesNotExist.class)
+    @ExceptionHandler(ClientReadClientDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(ClientDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleClientDoesNotExist(ClientReadClientDoesNotExist ex) {
         String prefix = "Error during client reading";
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))

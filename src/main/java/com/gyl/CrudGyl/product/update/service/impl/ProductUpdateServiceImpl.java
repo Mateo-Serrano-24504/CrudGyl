@@ -4,6 +4,8 @@ import com.gyl.CrudGyl.product.entity.HistoricProduct;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateRequestDto;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateResponseDto;
+import com.gyl.CrudGyl.product.update.exception.ProductUpdateProductDoesNotExist;
+import com.gyl.CrudGyl.product.update.exception.ProductUpdateProductTypeDoesNotExist;
 import com.gyl.CrudGyl.product.update.mapper.ProductUpdateMapper;
 import com.gyl.CrudGyl.product.update.repository.HistoricProductCreateRepository;
 import com.gyl.CrudGyl.product.update.repository.ProductUpdateRepository;
@@ -46,11 +48,11 @@ public class ProductUpdateServiceImpl implements ProductUpdateService {
         Instant now = Instant.now();
         Optional<Product> optionalProduct = this.repository.findById(id);
         if (optionalProduct.isEmpty()) {
-            throw new RuntimeException("");
+            throw new ProductUpdateProductDoesNotExist(id);
         }
         Optional<ProductType> optionalProductType = this.productTypeReadRepository.findById(dto.productTypeId());
         if (optionalProductType.isEmpty()) {
-            throw new RuntimeException("");
+            throw new ProductUpdateProductTypeDoesNotExist(dto.productTypeId());
         }
         Product product = optionalProduct.get();
         ProductType productType = optionalProductType.get();

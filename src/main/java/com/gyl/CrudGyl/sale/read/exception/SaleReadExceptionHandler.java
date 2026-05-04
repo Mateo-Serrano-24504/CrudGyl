@@ -1,4 +1,4 @@
-package com.gyl.CrudGyl.sale.exception;
+package com.gyl.CrudGyl.sale.read.exception;
 
 import com.gyl.CrudGyl.exception.ErrorFormat;
 import com.gyl.CrudGyl.sale.controller.SaleReadController;
@@ -11,9 +11,9 @@ import java.util.List;
 
 @ControllerAdvice(assignableTypes = SaleReadController.class)
 public class SaleReadExceptionHandler {
-    @ExceptionHandler(SaleDoesNotExist.class)
+    @ExceptionHandler(SaleCreateSaleDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleSaleDoesNotExist(SaleDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleSaleDoesNotExist(SaleCreateSaleDoesNotExist ex) {
         String prefix = "Error during sale reading";
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))

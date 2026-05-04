@@ -4,6 +4,7 @@ import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.client.entity.HistoricClient;
 import com.gyl.CrudGyl.client.update.dto.ClientUpdateRequestDto;
 import com.gyl.CrudGyl.client.update.dto.ClientUpdateResponseDto;
+import com.gyl.CrudGyl.client.update.exception.ClientUpdateClientDoesNotExist;
 import com.gyl.CrudGyl.client.update.mapper.ClientUpdateMapper;
 import com.gyl.CrudGyl.client.update.repository.ClientUpdateRepository;
 import com.gyl.CrudGyl.client.update.repository.HistoricClientCreateRepository;
@@ -41,7 +42,7 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
         Instant now = Instant.now();
         Optional<Client> optionalClient = this.repository.findById(id);
         if (optionalClient.isEmpty()) {
-            throw new RuntimeException("");
+            throw new ClientUpdateClientDoesNotExist(id);
         }
         Client client = optionalClient.get();
         this.historicClientCreateRepository.save(this.createHistoricClient(client, now));

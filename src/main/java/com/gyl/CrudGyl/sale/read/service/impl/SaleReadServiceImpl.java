@@ -1,7 +1,7 @@
 package com.gyl.CrudGyl.sale.read.service.impl;
 
 import com.gyl.CrudGyl.sale.entity.Sale;
-import com.gyl.CrudGyl.sale.exception.SaleDoesNotExist;
+import com.gyl.CrudGyl.sale.read.exception.SaleCreateSaleDoesNotExist;
 import com.gyl.CrudGyl.sale.read.dto.SaleReadResponseDto;
 import com.gyl.CrudGyl.sale.read.mapper.SaleReadMapper;
 import com.gyl.CrudGyl.sale.read.repository.SaleReadRepository;
@@ -28,7 +28,7 @@ public class SaleReadServiceImpl implements SaleReadService {
     public SaleReadResponseDto read(Long id) {
         Optional<Sale> sale = this.repository.findById(id);
         if (sale.isEmpty()) {
-            throw new SaleDoesNotExist(id);
+            throw new SaleCreateSaleDoesNotExist(id);
         }
         return this.mapper.toDto(sale.get());
     }

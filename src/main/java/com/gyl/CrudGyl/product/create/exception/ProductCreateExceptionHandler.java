@@ -12,9 +12,9 @@ import java.util.List;
 @ControllerAdvice(assignableTypes = ProductCreateController.class)
 public class ProductCreateExceptionHandler {
 
-    @ExceptionHandler(ProductTypeDoesNotExist.class)
+    @ExceptionHandler(ProductCreateProductTypeDoesNotExist.class)
     @SuppressWarnings("unused")
-    public ResponseEntity<ErrorFormat> handleProductTypeDoesNotExist(ProductTypeDoesNotExist ex) {
+    public ResponseEntity<ErrorFormat> handleProductTypeDoesNotExist(ProductCreateProductTypeDoesNotExist ex) {
         String prefix = "Error during product creation";
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
                 new ErrorFormat(prefix, List.of(ex.getMessage()))
