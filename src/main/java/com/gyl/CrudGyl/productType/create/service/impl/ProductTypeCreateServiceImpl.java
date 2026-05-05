@@ -1,6 +1,6 @@
 package com.gyl.CrudGyl.productType.create.service.impl;
 
-import com.gyl.CrudGyl.persistence.EntityState;
+import com.gyl.CrudGyl.productType.create.builder.ProductTypeCreateProductTypeBuilder;
 import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateRequestDto;
 import com.gyl.CrudGyl.productType.create.dto.ProductTypeCreateResponseDto;
 import com.gyl.CrudGyl.productType.create.mapper.ProductTypeCreateMapper;
@@ -15,22 +15,22 @@ import java.time.Instant;
 public class ProductTypeCreateServiceImpl implements ProductTypeCreateService {
     private final ProductTypeCreateRepository repository;
     private final ProductTypeCreateMapper mapper;
+    private final ProductTypeCreateProductTypeBuilder builder;
 
     public ProductTypeCreateServiceImpl(
             ProductTypeCreateRepository repository,
-            ProductTypeCreateMapper mapper
+            ProductTypeCreateMapper mapper,
+            ProductTypeCreateProductTypeBuilder builder
     ) {
         this.repository = repository;
         this.mapper = mapper;
+        this.builder = builder;
     }
 
     @Override
     public ProductTypeCreateResponseDto create(ProductTypeCreateRequestDto dto) {
         Instant now = Instant.now();
-        ProductType productType = this.mapper.fromDto(dto);
-        productType.setValidSince(now);
-        productType.setState(EntityState.ACTIVE);
-        productType.setCreatedAt(now);
+        ProductType productType = this.builder.build(dto, now);
         return this.mapper.toDto(
                 this.repository.save(productType)
         );
