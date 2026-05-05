@@ -2,6 +2,7 @@ package com.gyl.CrudGyl.product.update.service.impl;
 
 import com.gyl.CrudGyl.product.entity.HistoricProduct;
 import com.gyl.CrudGyl.product.entity.Product;
+import com.gyl.CrudGyl.product.update.builder.ProductUpdateProductBuilder;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateRequestDto;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateResponseDto;
 import com.gyl.CrudGyl.product.update.exception.ProductUpdateProductDoesNotExist;
@@ -16,7 +17,6 @@ import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -25,16 +25,19 @@ public class ProductUpdateServiceImpl implements ProductUpdateService {
     private final HistoricProductCreateRepository historicProductCreateRepository;
     private final ProductTypeReadRepository productTypeReadRepository;
     private final ProductUpdateMapper mapper;
+    private final ProductUpdateProductBuilder builder;
     public ProductUpdateServiceImpl(
             ProductUpdateRepository repository,
             HistoricProductCreateRepository historicProductCreateRepository,
             ProductTypeReadRepository productTypeReadRepository,
-            ProductUpdateMapper mapper
+            ProductUpdateMapper mapper,
+            ProductUpdateProductBuilder builder
     ) {
         this.repository = repository;
         this.historicProductCreateRepository = historicProductCreateRepository;
         this.productTypeReadRepository = productTypeReadRepository;
         this.mapper = mapper;
+        this.builder = builder;
     }
 
     private HistoricProduct createHistoricProduct(Product product, Instant invalidationTime) {
@@ -46,22 +49,14 @@ public class ProductUpdateServiceImpl implements ProductUpdateService {
     @Override
     public ProductUpdateResponseDto update(Long id, ProductUpdateRequestDto dto) {
         Instant now = Instant.now();
-        Optional<Product> optionalProduct = this.repository.findById(id);
-        if (optionalProduct.isEmpty()) {
-            throw new ProductUpdateProductDoesNotExist(id);
-        }
-        Optional<ProductType> optionalProductType = this.productTypeReadRepository.findById(dto.productTypeId());
-        if (optionalProductType.isEmpty()) {
-            throw new ProductUpdateProductTypeDoesNotExist(dto.productTypeId());
-        }
-        Product product = optionalProduct.get();
-        ProductType productType = optionalProductType.get();
+        Product product = this.repository
+                .findById(id)
+                .orElseThrow(() -> new ProductUpdateProductDoesNotExist(id));
+        ProductType productType = this.productTypeReadRepository
+                .findById(dto.productTypeId())
+                .orElseThrow(() -> new ProductUpdateProductTypeDoesNotExist(dto.productTypeId()));
         this.historicProductCreateRepository.save(this.createHistoricProduct(product, now));
-        Product newProduct = this.mapper.fromDto(dto);
-        newProduct.setId(product.getId());
-        newProduct.setValidSince(now);
-        newProduct.setCreatedAt(product.getCreatedAt());
-        newProduct.setProductType(productType);
+        Product newProduct = this.builder.build(product, dto, productType, now);
         return this.mapper.toDto(this.repository.save(newProduct));
     }
 }
