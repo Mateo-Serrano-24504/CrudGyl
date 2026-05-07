@@ -1,11 +1,8 @@
 package com.gyl.CrudGyl.productType.entity;
 
-import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.persistence.entity.HistoricEntity;
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.time.Instant;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
