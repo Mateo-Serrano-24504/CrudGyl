@@ -27,10 +27,9 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
     private final ClientUpdateHistoricClientMapper historicClientMapper;
     private final ClientUpdateClientUpdater builder;
 
-    private HistoricClient createHistoricClient(Client oldClient, Instant invalidationTime) {
-        HistoricClient historicClient = this.historicClientMapper.toHistoric(oldClient);
-        historicClient.setValidTo(invalidationTime);
-        return historicClient;
+    private void saveHistoricClient(Client oldClient, Instant invalidationTime) {
+        HistoricClient historicClient = this.historicClientMapper.toHistoric(oldClient, invalidationTime);
+        this.historicClientCreateRepository.save(historicClient);
     }
 
     @Override
@@ -39,7 +38,7 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
         Client client = this.repository
                 .findById(id)
                 .orElseThrow(() -> new ClientUpdateClientDoesNotExist(id));
-        this.historicClientCreateRepository.save(this.createHistoricClient(client, now));
+        this.saveHistoricClient(client, now);
         this.builder.update(client, dto);
         client.setValidSince(now);
         return this.mapper.toDto(client);

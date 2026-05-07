@@ -7,22 +7,18 @@ import com.gyl.CrudGyl.productType.create.mapper.ProductTypeCreateMapper;
 import com.gyl.CrudGyl.productType.create.repository.ProductTypeCreateRepository;
 import com.gyl.CrudGyl.productType.create.service.ProductTypeCreateService;
 import com.gyl.CrudGyl.productType.entity.ProductType;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 
 @Service
+@Transactional
+@RequiredArgsConstructor
 public class ProductTypeCreateServiceImpl implements ProductTypeCreateService {
     private final ProductTypeCreateRepository repository;
     private final ProductTypeCreateMapper mapper;
-
-    public ProductTypeCreateServiceImpl(
-            ProductTypeCreateRepository repository,
-            ProductTypeCreateMapper mapper
-    ) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public ProductTypeCreateResponseDto create(ProductTypeCreateRequestDto dto) {

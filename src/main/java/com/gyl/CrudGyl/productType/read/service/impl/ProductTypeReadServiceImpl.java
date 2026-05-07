@@ -5,16 +5,16 @@ import com.gyl.CrudGyl.productType.read.exception.ProductTypeReadProductTypeDoes
 import com.gyl.CrudGyl.productType.read.mapper.ProductTypeReadMapper;
 import com.gyl.CrudGyl.productType.read.repository.ProductTypeReadRepository;
 import com.gyl.CrudGyl.productType.read.service.ProductTypeReadService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class ProductTypeReadServiceImpl implements ProductTypeReadService {
     private final ProductTypeReadRepository repository;
     private final ProductTypeReadMapper mapper;
-    public ProductTypeReadServiceImpl(ProductTypeReadRepository repository, ProductTypeReadMapper mapper) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public ProductTypeReadResponseDto read(Long id) {

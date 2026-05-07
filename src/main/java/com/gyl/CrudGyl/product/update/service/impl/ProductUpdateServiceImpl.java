@@ -2,11 +2,10 @@ package com.gyl.CrudGyl.product.update.service.impl;
 
 import com.gyl.CrudGyl.product.entity.HistoricProduct;
 import com.gyl.CrudGyl.product.entity.Product;
-import com.gyl.CrudGyl.product.update.updater.ProductUpdateProductUpdater;
+import com.gyl.CrudGyl.product.update.updater.ProductUpdateUpdater;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateRequestDto;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateResponseDto;
 import com.gyl.CrudGyl.product.update.exception.ProductUpdateProductDoesNotExist;
-import com.gyl.CrudGyl.product.update.exception.ProductUpdateProductIsInactive;
 import com.gyl.CrudGyl.product.update.exception.ProductUpdateProductTypeDoesNotExist;
 import com.gyl.CrudGyl.product.update.mapper.ProductUpdateHistoricProductMapper;
 import com.gyl.CrudGyl.product.update.mapper.ProductUpdateMapper;
@@ -30,19 +29,17 @@ public class ProductUpdateServiceImpl implements ProductUpdateService {
     private final ProductTypeReadRepository productTypeReadRepository;
     private final ProductUpdateMapper mapper;
     private final ProductUpdateHistoricProductMapper historicProductMapper;
-    private final ProductUpdateProductUpdater builder;
+    private final ProductUpdateUpdater productUpdater;
 
     private Product getProduct(Long id) {
        return this.repository
                .findById(id)
-               .orElseThrow(() -> new ProductUpdateProductDoesNotExist(id))
-               .assertActive(() -> new ProductUpdateProductIsInactive(id));
+               .orElseThrow(() -> new ProductUpdateProductDoesNotExist(id));
     }
     private ProductType getProductType(Long id) {
         return this.productTypeReadRepository
                 .findById(id)
-                .orElseThrow(() -> new ProductUpdateProductTypeDoesNotExist(id))
-                .assertActive(() -> new ProductUpdateProductIsInactive(id));
+                .orElseThrow(() -> new ProductUpdateProductTypeDoesNotExist(id));
     }
 
     private void saveHistoric(Product product, Instant invalidationTime) {
@@ -56,7 +53,7 @@ public class ProductUpdateServiceImpl implements ProductUpdateService {
         Product product = this.getProduct(id);
         ProductType productType = this.getProductType(dto.productTypeId());
         this.saveHistoric(product, now);
-        this.builder.update(product, dto, productType, now);
+        this.productUpdater.update(product, dto, productType, now);
         return this.mapper.toDto(product);
     }
 }

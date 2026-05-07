@@ -8,7 +8,7 @@ import org.mapstruct.*;
 import java.time.Instant;
 
 @Mapper(componentModel = "spring")
-public interface ProductUpdateProductUpdater {
+public interface ProductUpdateUpdater {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "name", source = "dto.name")
     @Mapping(target = "state", source = "dto.state")

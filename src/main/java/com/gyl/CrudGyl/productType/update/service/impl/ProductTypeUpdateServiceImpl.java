@@ -27,8 +27,10 @@ public class ProductTypeUpdateServiceImpl implements ProductTypeUpdateService {
     private final ProductTypeUpdateHistoricProductTypeMapper historicProductTypeMapper;
     private final ProductTypeUpdateProductTypeBuilder builder;
 
-    private HistoricProductType createHistoricProductType(ProductType productType, Instant invalidationTime) {
-        return this.historicProductTypeMapper.toHistoric(productType, invalidationTime);
+    private void saveHistoricProductType(ProductType productType, Instant invalidationTime) {
+        this.historicProductTypeCreateRepository.save(
+                historicProductTypeMapper.toHistoric(productType, invalidationTime)
+        );
     }
 
     @Override
@@ -37,7 +39,7 @@ public class ProductTypeUpdateServiceImpl implements ProductTypeUpdateService {
         ProductType productType = this.repository
                 .findById(id)
                 .orElseThrow(() -> new ProductTypeUpdateProductTypeDoesNotExist(id));
-        this.historicProductTypeCreateRepository.save(this.createHistoricProductType(productType, now));
+        this.saveHistoricProductType(productType, now);
         ProductType newProductType = this.builder.build(productType, dto, now);
         return this.mapper.toDto(this.repository.save(newProductType));
     }

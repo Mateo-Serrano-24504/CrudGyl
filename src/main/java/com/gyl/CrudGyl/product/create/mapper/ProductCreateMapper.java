@@ -20,5 +20,7 @@ public interface ProductCreateMapper extends DateMapper {
     @Mapping(target = "createdAt", source = "time")
     @Mapping(target = "validSince", source = "time")
     Product fromDto(ProductCreateRequestDto dto, EntityState state, ProductType productType, Instant time);
+
+    @Mapping(target = "productTypeId", source = "product.productType.id")
     ProductCreateResponseDto toDto(Product product);
 }
