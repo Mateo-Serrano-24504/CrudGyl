@@ -1,6 +1,5 @@
 package com.gyl.CrudGyl.productType.update.service.impl;
 
-import com.gyl.CrudGyl.productType.entity.HistoricProductType;
 import com.gyl.CrudGyl.productType.entity.ProductType;
 import com.gyl.CrudGyl.productType.update.builder.ProductTypeUpdateProductTypeBuilder;
 import com.gyl.CrudGyl.productType.update.dto.ProductTypeUpdateRequestDto;
