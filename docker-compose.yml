@@ -25,7 +25,7 @@ services:
     container_name: adminer
 
     ports:
-      - "8081:8080"
+      - "${ADMINER_PORT}:8080"
 
     depends_on:
       - mysql
@@ -39,10 +39,10 @@ services:
       - mysql
 
     ports:
-      - "${BACK_PORT}:${BACK_PORT}"
+      - "${BACK_PORT}:8080"
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/products_gyl?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASS}
       BACK_PORT: ${BACK_PORT}
