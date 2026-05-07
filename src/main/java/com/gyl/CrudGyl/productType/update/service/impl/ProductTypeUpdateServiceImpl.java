@@ -6,38 +6,29 @@ import com.gyl.CrudGyl.productType.update.builder.ProductTypeUpdateProductTypeBu
 import com.gyl.CrudGyl.productType.update.dto.ProductTypeUpdateRequestDto;
 import com.gyl.CrudGyl.productType.update.dto.ProductTypeUpdateResponseDto;
 import com.gyl.CrudGyl.productType.update.exception.ProductTypeUpdateProductTypeDoesNotExist;
+import com.gyl.CrudGyl.productType.update.mapper.ProductTypeUpdateHistoricProductTypeMapper;
 import com.gyl.CrudGyl.productType.update.mapper.ProductTypeUpdateMapper;
 import com.gyl.CrudGyl.productType.update.repository.HistoricProductTypeCreateRepository;
 import com.gyl.CrudGyl.productType.update.repository.ProductTypeUpdateRepository;
 import com.gyl.CrudGyl.productType.update.service.ProductTypeUpdateService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ProductTypeUpdateServiceImpl implements ProductTypeUpdateService {
     private final ProductTypeUpdateRepository repository;
     private final HistoricProductTypeCreateRepository historicProductTypeCreateRepository;
     private final ProductTypeUpdateMapper mapper;
+    private final ProductTypeUpdateHistoricProductTypeMapper historicProductTypeMapper;
     private final ProductTypeUpdateProductTypeBuilder builder;
-    public ProductTypeUpdateServiceImpl(
-            ProductTypeUpdateRepository repository,
-            HistoricProductTypeCreateRepository historicProductTypeCreateRepository,
-            ProductTypeUpdateMapper mapper,
-            ProductTypeUpdateProductTypeBuilder builder
-    ) {
-        this.repository = repository;
-        this.historicProductTypeCreateRepository = historicProductTypeCreateRepository;
-        this.mapper = mapper;
-        this.builder = builder;
-    }
 
     private HistoricProductType createHistoricProductType(ProductType productType, Instant invalidationTime) {
-        HistoricProductType historicProductType = new HistoricProductType(productType);
-        historicProductType.setValidTo(invalidationTime);
-        return historicProductType;
+        return this.historicProductTypeMapper.toHistoric(productType, invalidationTime);
     }
 
     @Override

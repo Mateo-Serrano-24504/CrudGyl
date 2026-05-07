@@ -17,7 +17,6 @@ public class ClientReadServiceImpl implements ClientReadService {
     private final ClientReadRepository repository;
     private final ClientReadMapper mapper;
 
-
     @Override
     public ClientReadResponseDto read(Long id) {
         Client client = this.repository

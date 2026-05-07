@@ -27,4 +27,20 @@ public class ProductUpdateExceptionHandler {
                 new ErrorFormat(prefix, List.of(ex.getMessage()))
         );
     }
+    @ExceptionHandler(ProductUpdateProductIsInactive.class)
+    @SuppressWarnings("unused")
+    public ResponseEntity<ErrorFormat> handleProductIsInactive(ProductUpdateProductIsInactive ex) {
+        String prefix = "Error during product update";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorFormat(prefix, List.of(ex.getMessage()))
+        );
+    }
+    @ExceptionHandler(ProductUpdateProductTypeIsInactive.class)
+    @SuppressWarnings("unused")
+    public ResponseEntity<ErrorFormat> handleProductTypeIsInactive(ProductUpdateProductTypeIsInactive ex) {
+        String prefix = "Error during product update";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorFormat(prefix, List.of(ex.getMessage()))
+        );
+    }
 }

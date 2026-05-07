@@ -1,32 +1,16 @@
 package com.gyl.CrudGyl.product.update.mapper;
 
+import com.gyl.CrudGyl.mapper.DateMapper;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateRequestDto;
 import com.gyl.CrudGyl.product.update.dto.ProductUpdateResponseDto;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.time.ZoneOffset;
+@Mapper(componentModel = "spring")
+public interface ProductUpdateMapper extends DateMapper {
+    Product fromDto(ProductUpdateRequestDto dto);
 
-@Component
-public class ProductUpdateMapper {
-    public Product fromDto(ProductUpdateRequestDto dto) {
-        return new Product(
-                dto.name(),
-                dto.price(),
-                dto.stock(),
-                dto.state()
-        );
-    }
-    public ProductUpdateResponseDto toDto(Product product) {
-        return new ProductUpdateResponseDto(
-                product.getId(),
-                product.getName(),
-                product.getPrice(),
-                product.getStock(),
-                product.getProductType().getId(),
-                product.getValidSince().atOffset(ZoneOffset.UTC),
-                product.getState(),
-                product.getCreatedAt().atOffset(ZoneOffset.UTC)
-        );
-    }
+    @Mapping(target = "productTypeId", source = "productType.id")
+    ProductUpdateResponseDto toDto(Product product);
 }

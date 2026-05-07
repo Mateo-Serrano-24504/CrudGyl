@@ -1,26 +1,24 @@
 package com.gyl.CrudGyl.product.create.mapper;
 
+import com.gyl.CrudGyl.mapper.DateMapper;
+import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.create.dto.ProductCreateRequestDto;
 import com.gyl.CrudGyl.product.create.dto.ProductCreateResponseDto;
 import com.gyl.CrudGyl.product.entity.Product;
-import org.springframework.stereotype.Component;
+import com.gyl.CrudGyl.productType.entity.ProductType;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class ProductCreateMapper {
-    public Product fromDto(ProductCreateRequestDto dto) {
-        return new Product(
-                dto.name(),
-                dto.price(),
-                dto.stock()
-        );
-    }
-    public ProductCreateResponseDto toDto(Product product) {
-        return new ProductCreateResponseDto(
-                product.getId(),
-                product.getName(),
-                product.getPrice(),
-                product.getStock(),
-                product.getProductType().getId()
-        );
-    }
+import java.time.Instant;
+
+@Mapper(componentModel = "spring")
+public interface ProductCreateMapper extends DateMapper {
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "name", source = "dto.name")
+    @Mapping(target = "state", source = "state")
+    @Mapping(target = "productType", source = "productType")
+    @Mapping(target = "createdAt", source = "time")
+    @Mapping(target = "validSince", source = "time")
+    Product fromDto(ProductCreateRequestDto dto, EntityState state, ProductType productType, Instant time);
+    ProductCreateResponseDto toDto(Product product);
 }

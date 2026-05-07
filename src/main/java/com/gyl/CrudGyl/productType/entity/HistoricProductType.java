@@ -1,19 +1,18 @@
 package com.gyl.CrudGyl.productType.entity;
 
 import com.gyl.CrudGyl.persistence.EntityState;
+import com.gyl.CrudGyl.persistence.entity.HistoricEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "historic_product_types")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class HistoricProductType {
+public class HistoricProductType extends HistoricEntity<HistoricProductType> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -26,21 +25,4 @@ public class HistoricProductType {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "valid_from", nullable = false)
-    private Instant validFrom;
-
-    @Column(name = "valid_to", nullable = false)
-    private Instant validTo;
-
-    @Column(name = "state", nullable = false)
-    private EntityState state;
-
-    public HistoricProductType(ProductType productType) {
-        this.productTypeId = productType.getId();
-        this.name = productType.getName();
-        this.description = productType.getDescription();
-        this.validFrom = productType.getValidSince();
-        this.state = productType.getState();
-    }
 }

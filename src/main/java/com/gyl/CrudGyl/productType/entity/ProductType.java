@@ -1,19 +1,15 @@
 package com.gyl.CrudGyl.productType.entity;
 
-import com.gyl.CrudGyl.persistence.EntityState;
+import com.gyl.CrudGyl.persistence.entity.DatedEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.time.Instant;
-
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "product_types")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class ProductType {
+public class ProductType extends DatedEntity<ProductType> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -23,24 +19,4 @@ public class ProductType {
 
     @Column(name = "description")
     private String description;
-
-    @Column(name = "valid_since", nullable = false)
-    private Instant validSince;
-
-    @Column(name = "state", nullable = false)
-    private EntityState state;
-
-    @Column(name = "created_at", nullable = false)
-    private Instant createdAt;
-
-    public ProductType(String name, String description) {
-        this.name = name;
-        this.description = description;
-    }
-
-    public ProductType(String name, String description, EntityState state) {
-        this.name = name;
-        this.description = description;
-        this.state = state;
-    }
 }

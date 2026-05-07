@@ -4,16 +4,15 @@ import com.gyl.CrudGyl.product.create.dto.ProductCreateRequestDto;
 import com.gyl.CrudGyl.product.create.dto.ProductCreateResponseDto;
 import com.gyl.CrudGyl.product.create.service.ProductCreateService;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/products")
+@RequiredArgsConstructor
 public class ProductCreateController {
     private final ProductCreateService service;
-    public ProductCreateController(ProductCreateService service) {
-        this.service = service;
-    }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
