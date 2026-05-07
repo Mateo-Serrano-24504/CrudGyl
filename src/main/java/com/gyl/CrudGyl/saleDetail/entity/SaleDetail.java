@@ -4,9 +4,7 @@ import com.gyl.CrudGyl.persistence.EntityState;
 import com.gyl.CrudGyl.product.entity.Product;
 import com.gyl.CrudGyl.sale.entity.Sale;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 
@@ -15,6 +13,8 @@ import java.time.Instant;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class SaleDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -49,5 +49,9 @@ public class SaleDetail {
     public SaleDetail(Long amount, EntityState state) {
         this.amount = amount;
         this.state = state;
+    }
+
+    public SaleDetail(Long amount) {
+        this.amount = amount;
     }
 }

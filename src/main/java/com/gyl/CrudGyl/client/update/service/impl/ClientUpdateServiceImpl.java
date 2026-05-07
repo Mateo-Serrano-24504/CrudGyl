@@ -2,7 +2,8 @@ package com.gyl.CrudGyl.client.update.service.impl;
 
 import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.client.entity.HistoricClient;
-import com.gyl.CrudGyl.client.update.builder.ClientUpdateClientBuilder;
+import com.gyl.CrudGyl.client.update.mapper.ClientUpdateHistoricClientMapper;
+import com.gyl.CrudGyl.client.update.updater.ClientUpdateClientUpdater;
 import com.gyl.CrudGyl.client.update.dto.ClientUpdateRequestDto;
 import com.gyl.CrudGyl.client.update.dto.ClientUpdateResponseDto;
 import com.gyl.CrudGyl.client.update.exception.ClientUpdateClientDoesNotExist;
@@ -11,31 +12,23 @@ import com.gyl.CrudGyl.client.update.repository.ClientUpdateRepository;
 import com.gyl.CrudGyl.client.update.repository.HistoricClientCreateRepository;
 import com.gyl.CrudGyl.client.update.service.ClientUpdateService;
 import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class ClientUpdateServiceImpl implements ClientUpdateService {
     private final ClientUpdateRepository repository;
     private final HistoricClientCreateRepository historicClientCreateRepository;
     private final ClientUpdateMapper mapper;
-    private final ClientUpdateClientBuilder builder;
-    public ClientUpdateServiceImpl(
-            ClientUpdateRepository repository,
-            HistoricClientCreateRepository historicClientCreateRepository,
-            ClientUpdateMapper mapper,
-            ClientUpdateClientBuilder builder
-    ) {
-        this.repository = repository;
-        this.historicClientCreateRepository = historicClientCreateRepository;
-        this.mapper = mapper;
-        this.builder = builder;
-    }
+    private final ClientUpdateHistoricClientMapper historicClientMapper;
+    private final ClientUpdateClientUpdater builder;
 
     private HistoricClient createHistoricClient(Client oldClient, Instant invalidationTime) {
-        HistoricClient historicClient = new HistoricClient(oldClient);
+        HistoricClient historicClient = this.historicClientMapper.toHistoric(oldClient);
         historicClient.setValidTo(invalidationTime);
         return historicClient;
     }
@@ -47,9 +40,8 @@ public class ClientUpdateServiceImpl implements ClientUpdateService {
                 .findById(id)
                 .orElseThrow(() -> new ClientUpdateClientDoesNotExist(id));
         this.historicClientCreateRepository.save(this.createHistoricClient(client, now));
-        Client newClient = this.builder.build(client, dto, now);
-        return this.mapper.toDto(
-                this.repository.save(newClient)
-        );
+        this.builder.update(client, dto);
+        client.setValidSince(now);
+        return this.mapper.toDto(client);
     }
 }

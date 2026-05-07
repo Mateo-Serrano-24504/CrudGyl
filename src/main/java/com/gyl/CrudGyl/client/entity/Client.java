@@ -2,14 +2,12 @@ package com.gyl.CrudGyl.client.entity;
 
 import com.gyl.CrudGyl.persistence.entity.DatedEntity;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "clients")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 public class Client extends DatedEntity<Client> {
     @Id

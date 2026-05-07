@@ -2,22 +2,23 @@ package com.gyl.CrudGyl.sale.entity;
 
 import com.gyl.CrudGyl.client.entity.Client;
 import com.gyl.CrudGyl.persistence.EntityState;
+import com.gyl.CrudGyl.persistence.entity.DatedEntity;
 import com.gyl.CrudGyl.saleDetail.entity.SaleDetail;
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+@EqualsAndHashCode(callSuper = true)
 @Entity
 @Table(name = "sales")
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
-public class Sale {
+@AllArgsConstructor
+@Builder
+public class Sale extends DatedEntity<Sale> {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
@@ -38,6 +39,6 @@ public class Sale {
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 
-    @OneToMany(mappedBy = "sale", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "sale")
     private List<SaleDetail> salesDetails = new ArrayList<>();
 }

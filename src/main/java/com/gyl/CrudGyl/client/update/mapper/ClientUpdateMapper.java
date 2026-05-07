@@ -14,7 +14,6 @@ public interface ClientUpdateMapper {
     Client fromDto(ClientUpdateRequestDto dto);
     ClientUpdateResponseDto toDto(Client client);
 
-    @SuppressWarnings("unused")
     default OffsetDateTime map(Instant value) {
         return value == null ? null : value.atOffset(ZoneOffset.UTC);
     }

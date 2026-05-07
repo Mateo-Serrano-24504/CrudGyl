@@ -29,4 +29,22 @@ public class SaleCreateExceptionHandler {
                 new ErrorFormat(prefix, List.of(ex.getMessage()))
         );
     }
+
+    @ExceptionHandler(SaleCreateProductIsInactive.class)
+    @SuppressWarnings("unused")
+    public ResponseEntity<ErrorFormat> handleProductIsInactive(SaleCreateProductIsInactive ex) {
+        String prefix = "Error during sale creation";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorFormat(prefix, List.of(ex.getMessage()))
+        );
+    }
+
+    @ExceptionHandler(SaleCreateClientIsInactive.class)
+    @SuppressWarnings("unused")
+    public ResponseEntity<ErrorFormat> handleClientIsInactive(SaleCreateClientIsInactive ex) {
+        String prefix = "Error during sale creation";
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
+                new ErrorFormat(prefix, List.of(ex.getMessage()))
+        );
+    }
 }
