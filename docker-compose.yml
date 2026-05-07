@@ -4,25 +4,23 @@ services:
 
   mysql:
     image: mysql:8.0
-    container_name: mysql-db
 
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DB_PASS}
 
     ports:
-      - "${DB_PORT}:3306"
+      - "3306:3306"
 
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./mysql/init:/docker-entrypoint-initdb.d
 
     restart: unless-stopped
 
   adminer:
     image: adminer
-    container_name: adminer
+
+    restart: unless-stopped
 
     ports:
       - "${ADMINER_PORT}:8080"
@@ -30,24 +28,56 @@ services:
     depends_on:
       - mysql
 
-  backend:
-    build: .
+  clients-service:
+    build:
+      context: ./clients
 
-    container_name: spring-backend
+    restart: unless-stopped
 
     depends_on:
       - mysql
 
     ports:
-      - "${BACK_PORT}:8080"
+      - "${CLIENTS_BACK_PORT}:8080"
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: ${DB_USER}
-      SPRING_DATASOURCE_PASSWORD: ${DB_PASS}
-      BACK_PORT: ${BACK_PORT}
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${USERS_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+  products-service:
+    build:
+      context: ./products
 
     restart: unless-stopped
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "${PRODUCTS_BACK_PORT}:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${PRODUCTS_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+  sales-service:
+    build:
+      context: ./sales
+
+    restart: unless-stopped
+
+    depends_on:
+      - mysql
+
+    ports:
+      - "${SALES_BACK_PORT}:8080"
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${SALES_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
 volumes:
   mysql_data:
