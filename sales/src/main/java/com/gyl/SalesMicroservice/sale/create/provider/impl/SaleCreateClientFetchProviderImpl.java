@@ -8,6 +8,7 @@ import com.gyl.SalesMicroservice.sale.create.dto.SaleCreateClientFetchResponseDt
 import com.gyl.SalesMicroservice.sale.create.exception.SaleCreateClientFetchError;
 import com.gyl.SalesMicroservice.sale.create.exception.SaleCreateClientFetchUnhandleableError;
 import com.gyl.SalesMicroservice.sale.create.provider.SaleCreateClientFetchProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -17,17 +18,23 @@ public class SaleCreateClientFetchProviderImpl
         extends Provider<SaleCreateClientFetchResponseDto, Long, SaleCreateClientFetchUnhandleableError>
         implements SaleCreateClientFetchProvider {
     private final RestClient restClient;
+    private final String clientsServiceUri;
 
-    public SaleCreateClientFetchProviderImpl(ObjectMapper objectMapper, RestClient restClient) {
+    public SaleCreateClientFetchProviderImpl(
+            ObjectMapper objectMapper,
+            RestClient restClient,
+            @Value("${CLIENTS_SERVICE_URI:http://clients-service:8080}") String clientsServiceUri
+    ) {
         super(objectMapper);
         this.restClient = restClient;
+        this.clientsServiceUri = clientsServiceUri;
     }
 
     @Override
     protected Result<ErrorFormat, SaleCreateClientFetchResponseDto> tryProvide(Long clientId) {
         ResponseEntity<SaleCreateClientFetchResponseDto> response = this.restClient
                 .get()
-                .uri("http://client-service:8080/clients/{id}", clientId)
+                .uri(this.clientsServiceUri + "/clients/{id}", clientId)
                 .retrieve()
                 .toEntity(SaleCreateClientFetchResponseDto.class);
         return Result.ok(response.getBody(), response.getStatusCode().value());

@@ -78,6 +78,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${SALES_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      CLIENTS_SERVICE_URI: http://clients-service:8080
+      PRODUCTS_SERVICE_URI: http://products-service:8080
 
   gateway-service:
     build:

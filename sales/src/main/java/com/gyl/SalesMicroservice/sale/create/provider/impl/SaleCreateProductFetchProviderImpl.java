@@ -8,6 +8,7 @@ import com.gyl.SalesMicroservice.sale.create.dto.SaleCreateProductFetchResponseD
 import com.gyl.SalesMicroservice.sale.create.exception.SaleCreateProductFetchError;
 import com.gyl.SalesMicroservice.sale.create.exception.SaleCreateProductFetchUnhandleableError;
 import com.gyl.SalesMicroservice.sale.create.provider.SaleCreateProductFetchProvider;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -17,17 +18,23 @@ public class SaleCreateProductFetchProviderImpl
         extends Provider<SaleCreateProductFetchResponseDto, Long, SaleCreateProductFetchUnhandleableError>
         implements SaleCreateProductFetchProvider {
     private final RestClient restClient;
+    private final String productsServiceUri;
 
-    public SaleCreateProductFetchProviderImpl(ObjectMapper objectMapper, RestClient restClient) {
+    public SaleCreateProductFetchProviderImpl(
+            ObjectMapper objectMapper,
+            RestClient restClient,
+            @Value("${PRODUCTS_SERVICE_URI:http://products-service:8080}") String productsServiceUri
+    ) {
         super(objectMapper);
         this.restClient = restClient;
+        this.productsServiceUri = productsServiceUri;
     }
 
     @Override
     protected Result<ErrorFormat, SaleCreateProductFetchResponseDto> tryProvide(Long productId) {
         ResponseEntity<SaleCreateProductFetchResponseDto> response = this.restClient
                 .get()
-                .uri("http://product-service:8080/products/{id}", productId)
+                .uri(this.productsServiceUri + "/products/{id}", productId)
                 .retrieve()
                 .toEntity(SaleCreateProductFetchResponseDto.class);
         return Result.ok(response.getBody(), response.getStatusCode().value());
