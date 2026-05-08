@@ -6,8 +6,11 @@ import com.gyl.SalesMicroservice.sale.update.dto.SaleUpdateResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
-public interface SaleUpdateMapper extends DateMapper {
+@Mapper(
+        componentModel = "spring",
+        uses = DateMapper.class
+)
+public interface SaleUpdateMapper {
     @Mapping(target = "id", source = "sale.id")
     @Mapping(target = "total", source = "sale.total")
     @Mapping(target = "validSince", source = "sale.validSince")

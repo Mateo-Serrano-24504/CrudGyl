@@ -13,7 +13,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-public class SaleDetail extends DatedEntity<SaleDetail> {
+public class SaleDetail extends DatedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

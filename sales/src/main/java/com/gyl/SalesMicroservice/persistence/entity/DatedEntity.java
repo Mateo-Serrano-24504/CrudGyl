@@ -14,7 +14,7 @@ import java.time.Instant;
 @MappedSuperclass
 @NoArgsConstructor
 @SuperBuilder
-public class DatedEntity<T extends DatedEntity<T>> extends StatefulEntity<T> {
+public class DatedEntity extends StatefulEntity {
     @Column(name = "created_at", nullable = false)
     protected Instant createdAt;
 

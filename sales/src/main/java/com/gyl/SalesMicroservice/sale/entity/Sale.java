@@ -15,13 +15,13 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @SuperBuilder
-public class Sale extends DatedEntity<Sale> {
+public class Sale extends DatedEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
     @Column(name = "total", nullable = false)
-    Double total;
+    private Double total;
 
     @Column(name = "client_id", nullable = false)
     private Long clientId;

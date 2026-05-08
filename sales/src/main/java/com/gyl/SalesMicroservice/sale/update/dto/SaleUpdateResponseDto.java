@@ -6,7 +6,7 @@ import java.time.OffsetDateTime;
 
 public record SaleUpdateResponseDto (
         Long id,
-        Double price,
+        Double total,
         Long clientId,
         OffsetDateTime validSince,
         EntityState state,

@@ -7,8 +7,11 @@ import com.gyl.SalesMicroservice.saleDetail.update.dto.SaleDetailUpdateResponseD
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
-public interface SaleDetailUpdateMapper extends DateMapper {
+@Mapper(
+        componentModel = "spring",
+        uses = DateMapper.class
+)
+public interface SaleDetailUpdateMapper {
     SaleDetail fromDto(SaleDetailUpdateRequestDto dto);
 
     @Mapping(target = "id", source = "saleDetail.id")

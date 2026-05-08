@@ -69,6 +69,8 @@ services:
     restart: unless-stopped
 
     depends_on:
+      - clients-service
+      - products-service
       - mysql
 
     ports:

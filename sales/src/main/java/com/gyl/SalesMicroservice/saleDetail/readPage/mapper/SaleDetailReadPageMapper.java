@@ -6,8 +6,11 @@ import com.gyl.SalesMicroservice.saleDetail.readPage.dto.SaleDetailReadPageRespo
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
-public interface SaleDetailReadPageMapper extends DateMapper {
+@Mapper(
+        componentModel = "spring",
+        uses = DateMapper.class
+)
+public interface SaleDetailReadPageMapper {
     @Mapping(target = "id", source = "saleDetail.id")
     @Mapping(target = "createdAt", source = "saleDetail.createdAt")
     @Mapping(target = "validSince", source = "saleDetail.validSince")

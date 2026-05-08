@@ -15,16 +15,8 @@ import java.util.function.Supplier;
 @MappedSuperclass
 @NoArgsConstructor
 @SuperBuilder
-public class StatefulEntity<T extends StatefulEntity<T>> {
+public class StatefulEntity {
     @Enumerated(EnumType.STRING)
     @Column(name = "state", nullable = false)
     protected EntityState state;
-
-    @SuppressWarnings("unchecked unused")
-    public T assertActive(Supplier<? extends RuntimeException> exceptionSupplier) {
-        if (this.state == EntityState.INACTIVE) {
-            throw exceptionSupplier.get();
-        }
-        return (T) this;
-    }
 }
