@@ -7,23 +7,20 @@ import com.gyl.SalesMicroservice.saleDetail.readPage.mapper.SaleDetailReadPageMa
 import com.gyl.SalesMicroservice.saleDetail.readPage.repository.SaleDetailReadPageRepository;
 import com.gyl.SalesMicroservice.saleDetail.readPage.service.SaleDetailReadPageService;
 import com.gyl.SalesMicroservice.saleDetail.readPage.spec.SaleDetailReadPageSpecification;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class SaleDetailReadPageServiceImpl implements SaleDetailReadPageService {
     private final SaleDetailReadPageRepository repository;
     private final SaleDetailReadPageMapper mapper;
-    public SaleDetailReadPageServiceImpl(
-            SaleDetailReadPageRepository repository,
-            SaleDetailReadPageMapper mapper
-    ) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public Page<SaleDetailReadPageResponseDto> readPage(Integer page, Integer size, Long saleId) {

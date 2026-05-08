@@ -6,30 +6,22 @@ import com.gyl.SalesMicroservice.sale.read.dto.SaleReadResponseDto;
 import com.gyl.SalesMicroservice.sale.read.mapper.SaleReadMapper;
 import com.gyl.SalesMicroservice.sale.read.repository.SaleReadRepository;
 import com.gyl.SalesMicroservice.sale.read.service.SaleReadService;
-import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
+@RequiredArgsConstructor
 public class SaleReadServiceImpl implements SaleReadService {
     private final SaleReadRepository repository;
     private final SaleReadMapper mapper;
-    public SaleReadServiceImpl(
-            SaleReadRepository repository,
-            SaleReadMapper mapper
-    ) {
-        this.repository = repository;
-        this.mapper = mapper;
-    }
 
     @Override
     public SaleReadResponseDto read(Long id) {
-        Optional<Sale> sale = this.repository.findById(id);
-        if (sale.isEmpty()) {
-            throw new SaleCreateSaleDoesNotExist(id);
-        }
-        return this.mapper.toDto(sale.get());
+        Sale sale = this.repository
+                .findById(id)
+                .orElseThrow(() -> new SaleCreateSaleDoesNotExist(id));
+        return this.mapper.toDto(sale);
     }
 }

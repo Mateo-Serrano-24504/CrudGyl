@@ -1,28 +1,36 @@
 package com.gyl.SalesMicroservice.sale.read.mapper;
 
+import com.gyl.SalesMicroservice.mapper.DateMapper;
 import com.gyl.SalesMicroservice.sale.entity.Sale;
+import com.gyl.SalesMicroservice.sale.read.dto.SaleDetailReadResponseDto;
 import com.gyl.SalesMicroservice.sale.read.dto.SaleReadResponseDto;
-import org.springframework.stereotype.Component;
+import com.gyl.SalesMicroservice.saleDetail.entity.SaleDetail;
+import org.mapstruct.AfterMapping;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import java.util.List;
 
-import java.time.ZoneOffset;
+@Mapper(componentModel = "spring")
+public interface SaleReadMapper extends DateMapper {
+    @Mapping(target = "id", source = "sale.id")
+    @Mapping(target = "total", source = "sale.total")
+    @Mapping(target = "validSince", source = "sale.validSince")
+    @Mapping(target = "createdAt", source = "sale.createdAt")
+    @Mapping(target = "state", source = "sale.state")
+    @Mapping(target = "salesDetails", expression = "java(mapSalesDetails(sale.salesDetails))")
+    SaleReadResponseDto toDto(Sale sale);
 
-@Component
-public class SaleReadMapper {
-    private final SaleDetailReadMapper saleDetailReadMapper;
-    public SaleReadMapper(SaleDetailReadMapper saleDetailReadMapper) {
-        this.saleDetailReadMapper = saleDetailReadMapper;
+    @SuppressWarnings("unused")
+    default List<SaleDetailReadResponseDto> mapSalesDetails(Sale sale, SaleDetailReadMapper mapper) {
+        return sale.getSalesDetails().stream()
+                .map(mapper::toDto)
+                .toList();
     }
-    public SaleReadResponseDto toDto(Sale sale) {
-        return new SaleReadResponseDto(
-                sale.getId(),
-                sale.getTotal(),
-                sale.getValidSince().atOffset(ZoneOffset.UTC),
-                sale.getState(),
-                sale.getCreatedAt().atOffset(ZoneOffset.UTC),
-                sale.getClientId(),
-                sale.getSalesDetails().stream()
-                        .map(this.saleDetailReadMapper::toDto)
-                        .toList()
+    @AfterMapping
+    @SuppressWarnings("unused")
+    default void attachSaleToSalesDetails(Sale sale, List<SaleDetail> details) {
+        details.forEach(
+                detail -> detail.setSale(sale)
         );
     }
 }

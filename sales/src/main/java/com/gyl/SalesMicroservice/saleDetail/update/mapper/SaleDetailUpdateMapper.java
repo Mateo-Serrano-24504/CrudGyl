@@ -1,31 +1,19 @@
 package com.gyl.SalesMicroservice.saleDetail.update.mapper;
 
+import com.gyl.SalesMicroservice.mapper.DateMapper;
 import com.gyl.SalesMicroservice.saleDetail.entity.SaleDetail;
 import com.gyl.SalesMicroservice.saleDetail.update.dto.SaleDetailUpdateRequestDto;
 import com.gyl.SalesMicroservice.saleDetail.update.dto.SaleDetailUpdateResponseDto;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.time.ZoneOffset;
+@Mapper(componentModel = "spring")
+public interface SaleDetailUpdateMapper extends DateMapper {
+    SaleDetail fromDto(SaleDetailUpdateRequestDto dto);
 
-@Component
-public class SaleDetailUpdateMapper {
-    public SaleDetail fromDto(SaleDetailUpdateRequestDto dto) {
-        return new SaleDetail(
-                dto.amount(),
-                dto.state()
-        );
-    }
-    public SaleDetailUpdateResponseDto toDto(SaleDetail saleDetail) {
-        return new SaleDetailUpdateResponseDto(
-                saleDetail.getId(),
-                saleDetail.getAmount(),
-                saleDetail.getUnitPrice(),
-                saleDetail.getSubtotal(),
-                saleDetail.getProductId(),
-                saleDetail.getSale().getId(),
-                saleDetail.getCreatedAt().atOffset(ZoneOffset.UTC),
-                saleDetail.getState(),
-                saleDetail.getValidSince().atOffset(ZoneOffset.UTC)
-        );
-    }
+    @Mapping(target = "id", source = "saleDetail.id")
+    @Mapping(target = "createdAt", source = "saleDetail.createdAt")
+    @Mapping(target = "validSince", source = "saleDetail.validSince")
+    @Mapping(target = "state", source = "saleDetail.state")
+    SaleDetailUpdateResponseDto toDto(SaleDetail saleDetail);
 }

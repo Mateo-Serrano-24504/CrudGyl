@@ -1,16 +1,11 @@
 package com.gyl.SalesMicroservice.sale.create.mapper;
 
+import com.gyl.SalesMicroservice.mapper.DateMapper;
 import com.gyl.SalesMicroservice.sale.create.dto.SaleCreateResponseDto;
 import com.gyl.SalesMicroservice.sale.entity.Sale;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
 
-import java.time.ZoneOffset;
-
-@Component
-public class SaleCreateMapper {
-    public SaleCreateResponseDto toDto(Sale sale) {
-        return new SaleCreateResponseDto(
-                sale.getId(), sale.getCreatedAt().atOffset(ZoneOffset.UTC), sale.getTotal()
-        );
-    }
+@Mapper(componentModel = "spring")
+public interface SaleCreateMapper extends DateMapper {
+    SaleCreateResponseDto toDto(Sale sale);
 }

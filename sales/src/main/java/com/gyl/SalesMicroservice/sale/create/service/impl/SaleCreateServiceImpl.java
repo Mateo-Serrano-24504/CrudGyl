@@ -17,9 +17,9 @@ import com.gyl.SalesMicroservice.sale.create.repository.SaleCreateRepository;
 import com.gyl.SalesMicroservice.sale.create.service.SaleCreateService;
 import com.gyl.SalesMicroservice.sale.entity.Sale;
 import com.gyl.SalesMicroservice.saleDetail.entity.SaleDetail;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.List;

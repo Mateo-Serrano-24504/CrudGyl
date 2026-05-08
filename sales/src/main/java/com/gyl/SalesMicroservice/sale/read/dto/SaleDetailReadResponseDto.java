@@ -11,5 +11,7 @@ public record SaleDetailReadResponseDto(
         Double subtotal,
         OffsetDateTime validSince,
         EntityState state,
-        OffsetDateTime createdAt
+        OffsetDateTime createdAt,
+        Long productId,
+        Long saleId
 ) {}

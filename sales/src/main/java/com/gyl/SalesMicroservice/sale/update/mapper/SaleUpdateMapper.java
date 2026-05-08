@@ -1,21 +1,17 @@
 package com.gyl.SalesMicroservice.sale.update.mapper;
 
+import com.gyl.SalesMicroservice.mapper.DateMapper;
 import com.gyl.SalesMicroservice.sale.entity.Sale;
 import com.gyl.SalesMicroservice.sale.update.dto.SaleUpdateResponseDto;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-import java.time.ZoneOffset;
-
-@Component
-public class SaleUpdateMapper {
-    public SaleUpdateResponseDto toDto(Sale sale) {
-        return new SaleUpdateResponseDto(
-                sale.getId(),
-                sale.getTotal(),
-                sale.getClientId(),
-                sale.getValidSince().atOffset(ZoneOffset.UTC),
-                sale.getState(),
-                sale.getCreatedAt().atOffset(ZoneOffset.UTC)
-        );
-    }
+@Mapper(componentModel = "spring")
+public interface SaleUpdateMapper extends DateMapper {
+    @Mapping(target = "id", source = "sale.id")
+    @Mapping(target = "total", source = "sale.total")
+    @Mapping(target = "validSince", source = "sale.validSince")
+    @Mapping(target = "createdAt", source = "sale.createdAt")
+    @Mapping(target = "state", source = "sale.state")
+    SaleUpdateResponseDto toDto(Sale sale);
 }

@@ -11,9 +11,9 @@ import com.gyl.SalesMicroservice.saleDetail.update.mapper.SaleDetailUpdateMapper
 import com.gyl.SalesMicroservice.saleDetail.update.provider.SaleDetailUpdateProductFetchProvider;
 import com.gyl.SalesMicroservice.saleDetail.update.repository.SaleDetailUpdateRepository;
 import com.gyl.SalesMicroservice.saleDetail.update.service.SaleDetailUpdateService;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Objects;
