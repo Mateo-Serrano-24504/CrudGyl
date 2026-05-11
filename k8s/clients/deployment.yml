@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: clients-service
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: clients-service
+
+  template:
+    metadata:
+      labels:
+        app: clients-service
+
+    spec:
+      containers:
+        - name: clients-service
+
+          image: crudgyl-clients-service:latest
+
+          ports:
+            - containerPort: 8080
+
+          envFrom:
+            - configMapRef:
+                name: clients-config
+
+            - secretRef:
+                name: clients-secret

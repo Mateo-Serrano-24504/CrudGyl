@@ -41,9 +41,11 @@ services:
       - "${CLIENTS_BACK_PORT}:8080"
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${USERS_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${USERS_DB_NAME}
+      DB_USERNAME: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   products-service:
     build:
@@ -58,9 +60,11 @@ services:
       - "${PRODUCTS_BACK_PORT}:8080"
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${PRODUCTS_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${PRODUCTS_DB_NAME}
+      DB_USERNAME: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   sales-service:
     build:
@@ -77,11 +81,11 @@ services:
       - "${SALES_BACK_PORT}:8080"
 
     environment:
-      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/${SALES_DB_NAME}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      CLIENTS_SERVICE_URI: http://clients-service:8080
-      PRODUCTS_SERVICE_URI: http://products-service:8080
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_NAME: ${SALES_DB_NAME}
+      DB_USERNAME: root
+      DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   gateway-service:
     build:

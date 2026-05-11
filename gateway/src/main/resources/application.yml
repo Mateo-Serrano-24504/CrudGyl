@@ -1,6 +1,7 @@
 spring:
   application:
     name: GatewayMicroservice
+
   cloud:
     gateway:
       server:
@@ -10,10 +11,12 @@ spring:
               uri: ${CLIENTS_SERVICE_URI:http://clients-service:8080}
               predicates:
                 - Path=/clients/**
+
             - id: products-service
               uri: ${PRODUCTS_SERVICE_URI:http://products-service:8080}
               predicates:
                 - Path=/products/**
+
             - id: sales-service
               uri: ${SALES_SERVICE_URI:http://sales-service:8080}
               predicates:
