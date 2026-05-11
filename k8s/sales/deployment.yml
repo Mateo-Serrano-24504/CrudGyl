@@ -21,6 +21,7 @@ spec:
         - name: sales-service
 
           image: crudgyl-sales-service:latest
+          imagePullPolicy: Never
 
           ports:
             - containerPort: 8080

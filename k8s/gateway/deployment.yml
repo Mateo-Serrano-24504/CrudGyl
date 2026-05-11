@@ -21,6 +21,7 @@ spec:
         - name: gateway-service
 
           image: crudgyl-gateway-service:latest
+          imagePullPolicy: Never
 
           ports:
             - containerPort: 8080

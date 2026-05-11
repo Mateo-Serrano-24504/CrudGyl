@@ -21,6 +21,7 @@ spec:
         - name: products-service
 
           image: crudgyl-products-service:latest
+          imagePullPolicy: Never
 
           ports:
             - containerPort: 8080
