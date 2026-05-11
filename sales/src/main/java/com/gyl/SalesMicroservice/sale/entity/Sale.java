@@ -26,7 +26,7 @@ public class Sale extends DatedEntity {
     @Column(name = "client_id", nullable = false)
     private Long clientId;
 
-    @OneToMany(mappedBy = "sale")
+    @OneToMany(mappedBy = "sale", cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @Builder.Default
     private List<SaleDetail> salesDetails = new ArrayList<>();
 }
