@@ -8,7 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/products/types")
+@RequestMapping("/types")
 public class ProductTypeUpdateController {
     private final ProductTypeUpdateService service;
     public ProductTypeUpdateController(ProductTypeUpdateService service) {

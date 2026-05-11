@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sales")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class SaleCreateController {
     private final SaleCreateService service;

@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/clients")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class ClientUpdateController {
     private final ClientUpdateService service;

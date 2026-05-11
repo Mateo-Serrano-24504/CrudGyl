@@ -11,16 +11,43 @@ spring:
               uri: ${CLIENTS_SERVICE_URI:http://clients-service:8080}
               predicates:
                 - Path=/clients/**
+              filters:
+                - RewritePath=/clients/(?<segment>.*), /${segment}
 
             - id: products-service
               uri: ${PRODUCTS_SERVICE_URI:http://products-service:8080}
               predicates:
                 - Path=/products/**
+              filters:
+                - RewritePath=/products/(?<segment>.*), /${segment}
 
             - id: sales-service
               uri: ${SALES_SERVICE_URI:http://sales-service:8080}
               predicates:
                 - Path=/sales/**
+              filters:
+                - RewritePath=/sales/(?<segment>.*), /${segment}
+
+            - id: clients-openapi
+              uri: http://clients-service:8080
+              predicates:
+                - Path=/clients/v3/api-docs
+              filters:
+                - RewritePath=/clients/v3/api-docs, /v3/api-docs
+
+            - id: products-openapi
+              uri: http://products-service:8080
+              predicates:
+                - Path=/products/v3/api-docs
+              filters:
+                - RewritePath=/products/v3/api-docs, /v3/api-docs
+
+            - id: sales-openapi
+              uri: http://sales-service:8080
+              predicates:
+                - Path=/sales/v3/api-docs
+              filters:
+                - RewritePath=/sales/v3/api-docs, /v3/api-docs
 
 server:
   port: ${SERVER_PORT:8080}
@@ -33,3 +60,17 @@ management:
   endpoint:
     gateway:
       access: read-only
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+    urls:
+      - name: Clients Service
+        url: /clients/v3/api-docs
+
+      - name: Products Service
+        url: /products/v3/api-docs
+
+      - name: Sales Service
+        url: /sales/v3/api-docs

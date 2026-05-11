@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/products/types/")
+@RequestMapping("/types/")
 public class ProductTypeReadController {
     private final ProductTypeReadService service;
     public ProductTypeReadController(ProductTypeReadService service) {

@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/products")
+@RequestMapping("/")
 public class ProductReadController {
     private final ProductReadService service;
     public ProductReadController(ProductReadService service) {

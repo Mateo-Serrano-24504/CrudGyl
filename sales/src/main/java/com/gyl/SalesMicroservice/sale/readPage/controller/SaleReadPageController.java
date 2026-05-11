@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/sales")
+@RequestMapping("/")
 public class SaleReadPageController {
     private final SaleReadPageService service;
     public SaleReadPageController(SaleReadPageService service) {
