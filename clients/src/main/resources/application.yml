@@ -19,5 +19,9 @@ spring:
       hibernate:
         format_sql: true
 
+app:
+  gateway-host: ${GATEWAY_HOST}
+  gateway-port: ${GATEWAY_PORT}
+
 server:
   port: 8080

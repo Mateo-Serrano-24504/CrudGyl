@@ -27,5 +27,9 @@ products:
   service:
     uri: ${PRODUCTS_SERVICE_URI}
 
+app:
+  gateway-host: ${GATEWAY_HOST}
+  gateway-port: ${GATEWAY_PORT}
+
 server:
   port: 8080

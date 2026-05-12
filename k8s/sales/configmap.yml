@@ -10,3 +10,5 @@ data:
   DB_NAME: sales_db
   CLIENTS_SERVICE_URI: http://clients-service:8080
   PRODUCTS_SERVICE_URI: http://products-service:8080
+  GATEWAY_HOST: localhost
+  GATEWAY_PORT: "30080"

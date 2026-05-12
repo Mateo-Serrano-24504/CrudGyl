@@ -8,3 +8,5 @@ data:
   DB_HOST: mysql-service
   DB_PORT: "3306"
   DB_NAME: users_db
+  GATEWAY_HOST: localhost
+  GATEWAY_PORT: "30080"

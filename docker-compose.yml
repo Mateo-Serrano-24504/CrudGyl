@@ -46,6 +46,8 @@ services:
       DB_NAME: ${USERS_DB_NAME}
       DB_USERNAME: root
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      GATEWAY_HOST: localhost
+      GATEWAY_PORT: ${GATEWAY_PORT}
 
   products-service:
     build:
@@ -65,6 +67,8 @@ services:
       DB_NAME: ${PRODUCTS_DB_NAME}
       DB_USERNAME: root
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      GATEWAY_HOST: localhost
+      GATEWAY_PORT: ${GATEWAY_PORT}
 
   sales-service:
     build:
@@ -86,6 +90,8 @@ services:
       DB_NAME: ${SALES_DB_NAME}
       DB_USERNAME: root
       DB_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      GATEWAY_HOST: localhost
+      GATEWAY_PORT: ${GATEWAY_PORT}
 
   gateway-service:
     build:
