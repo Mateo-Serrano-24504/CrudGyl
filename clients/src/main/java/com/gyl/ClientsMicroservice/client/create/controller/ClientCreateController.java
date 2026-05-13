@@ -3,13 +3,15 @@ package com.gyl.ClientsMicroservice.client.create.controller;
 import com.gyl.ClientsMicroservice.client.create.dto.ClientCreateResponseDto;
 import com.gyl.ClientsMicroservice.client.create.dto.ClientCreateRequestDto;
 import com.gyl.ClientsMicroservice.client.create.service.ClientCreateService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/api")
+@SecurityRequirement(name = "bearerAuth")
 @RequiredArgsConstructor
 public class ClientCreateController {
     private final ClientCreateService service;
